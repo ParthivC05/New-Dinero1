@@ -1,7 +1,7 @@
 import { StateProvider } from '@/store';
 import './../../global.scss';
 
-export default async function RootLayout({ children }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="">
