@@ -10,6 +10,7 @@ import SignupStepper from './stepper';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import useGeoLocation from '@/common/hook/useGeoLocation';
 import AuthHeader from './header';
+import Link from 'next/link';
 
 const US_STATE_NAME_TO_CODE = {
   Alabama: 'AL',
@@ -127,106 +128,52 @@ function isBlockedRegion(geo, clientIP = null) {
 }
 
 function Signup() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const newPasswordKey = searchParams.get('newPasswordKey');
-
-  const token = getAccessToken();
-  const [open, setOpen] = useState(isEmpty(token));
-  const [isAuthenticated, setIsAuthenticated] = useState(!isEmpty(token));
-  const [isForgotPassword, setIsForgotPassword] = useState(false);
-  const [toastState, setToastState] = useState({
-    showToast: false,
-    message: '',
-    status: '',
-  });
-  // const { signupData, signupLoading } = useSignup();
-  const location = useGeoLocation();
-  const [geoInfo, setGeoInfo] = useState(null);
-  const [geoBlock, setGeoBlock] = useState(false);
-
-  useEffect(() => {
-    const checkToken = () => {
-      const hasToken = !isEmpty(getAccessToken());
-      setIsAuthenticated(hasToken);
-      setOpen(!hasToken);
-    };
-    checkToken();
-    const timeoutId = setTimeout(checkToken, 100);
-    window.addEventListener('storage', checkToken);
-    window.addEventListener('focus', checkToken);
-    const intervalId = setInterval(checkToken, 500);
-    return () => {
-      clearTimeout(timeoutId);
-      clearInterval(intervalId);
-      window.removeEventListener('storage', checkToken);
-      window.removeEventListener('focus', checkToken);
-    };
-  }, [router]);
-
-  useEffect(() => {
-    async function fetchGeo() {
-      if (
-        location.loaded &&
-        !location.error &&
-        location.coordinates.lat &&
-        location.coordinates.lng
-      ) {
-        try {
-          // Fetch client IP in parallel with geolocation
-          const [ipResponse, geoResponse] = await Promise.all([
-            fetchClientIP(),
-            fetch(
-              `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${location.coordinates.lat}&longitude=${location.coordinates.lng}&localityLanguage=en`
-            ),
-          ]);
-
-          const clientIP = ipResponse;
-          const geoData = await geoResponse.json();
-
-          const geo = {
-            country_code: geoData.countryCode,
-            state_code: geoData.principalSubdivisionCode?.split('-')[1],
-            state_name: geoData.principalSubdivision,
-          };
-          setGeoInfo(geo);
-
-          if (isBlockedRegion(geo, clientIP)) {
-            setGeoBlock(true);
-            setToastState({
-              showToast: true,
-              message: 'Access from your region is restricted.',
-              status: 'error',
-            });
-          }
-        } catch (error) {
-          console.error('Error fetching geo/IP data:', error);
-        }
-      }
-    }
-    fetchGeo();
-  }, [location]);
-
-  if (pathname === '/reset-password' && newPasswordKey) {
-    return null;
-  }
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleSubmit = () => {};
 
   return (
     <div className="w-full h-[100lvh] bg-custom-gradient">
       <AuthHeader />
-      <div className="flex justify-center items-center gap-6">
+      <div className="flex justify-center items-center gap-2">
         <SignupStepper />
         <div className="flex-row  justify-center items-center">
           <Banner />
-          <UserForm
-            controls={SIGNUP}
-            isSignUp
-            setOpen={setOpen}
-            setToastState={setToastState}
-            geoInfo={geoInfo}
-            isBlocked={geoBlock}
-          />
+          <form className=" flex flex-col justify-center items-center gap-6">
+            <input
+              className="w-full rounded-lg p-2 bg-inherit "
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="username"
+            />
+            <input
+              className="w-full rounded-lg p-2 bg-inherit "
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              name="password"
+              id="password"
+              placeholder="password"
+            />
+            <div className=" flex flex-col items-center">
+              <button
+                className="px-8 py-2 rounded-3xl bg-orange-600 hover:bg-orange-700 text-white"
+                type="submit"
+                onClick={handleSubmit}
+              >
+                Play Now
+              </button>
+              <p className="text-white">
+                Already got an account?
+                <Link className="underline" href={'/login'}>
+                  Login
+                </Link>
+              </p>
+            </div>
+          </form>
           <GoogleFacebookSignupButton />
         </div>
       </div>
