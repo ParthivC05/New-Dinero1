@@ -167,7 +167,7 @@ function Signup() {
                 Play Now
               </button>
               <p className="text-white">
-                Already got an account?
+                Already got an account?{' '}
                 <Link className="underline" href={'/login'}>
                   Login
                 </Link>
