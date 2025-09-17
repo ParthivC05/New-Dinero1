@@ -7,7 +7,7 @@ import Image from 'next/image';
 import gift from '@/assets/png/gift.gif';
 function SignupStepper() {
   return (
-    <div className="">
+    <div className=" hidden md:block">
       <Stepper
         orientation="vertical"
         sx={{
@@ -16,18 +16,19 @@ function SignupStepper() {
           '--Step-connectorInset': '2px',
           '--Stepper-verticalGap': '54px',
           '--StepIndicator-size': '55px',
-        [`& .${stepClasses.completed}::after`]: {
-          bgcolor: 'yellow',
-        }}}
+          [`& .${stepClasses.completed}::after`]: {
+            bgcolor: 'yellow',
+          },
+        }}
       >
         <Step
           completed
-          sx={{ 'color': 'yellow' }}
+          sx={{ color: 'yellow' }}
           indicator={
             <StepIndicator
               variant="solid"
               sx={{
-                'color': 'white',
+                color: 'white',
                 '--StepIndicator-size': '35px',
                 background: 'yellow',
               }}

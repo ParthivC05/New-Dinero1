@@ -5,6 +5,8 @@ import GoogleFacebookSignupButton from './googleSignupButton';
 import SignupStepper from './stepper';
 import AuthHeader from './header';
 import Link from 'next/link';
+import InputEmail from './inputEmail';
+import InputPassword from './inputPassword';
 
 function Signup() {
   const [email, setEmail] = useState('');
@@ -12,47 +14,33 @@ function Signup() {
   const handleSubmit = () => {};
 
   return (
-    <div className="w-full h-[100lvh] bg-custom-gradient">
+    <div className="p-6 h-screen w-full bg-custom-gradient">
       <AuthHeader />
       <div className="flex justify-center items-center gap-2">
         <SignupStepper />
         <div className="flex-row  justify-center items-center">
           <Banner />
-          <form className=" flex flex-col justify-center items-center gap-6">
-            <input
-              className="w-full pl-8 rounded-xl p-2 border  bg-stone-800 "
-              type="email"
-              name="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email Address"
-            />
-            <input
-              className="w-full pl-8 rounded-xl p-2 border bg-stone-800 "
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-            />
-            <div className=" flex flex-col items-center">
-              <button
-                className="px-8 py-2 rounded-3xl bg-orange-600 border-b-8  border-orange-700 text-white"
-                type="submit"
-                onClick={handleSubmit}
-              >
-                Play Now
-              </button>
-              <p className="text-white">
-                Already got an account?{' '}
-                <Link className="underline" href={'/login'}>
-                  Login
-                </Link>
-              </p>
-            </div>
-          </form>
+          <div className="max-w-xl mx-auto">
+            <form className=" flex flex-col gap-4">
+              <InputEmail email={email} setEmail={setEmail} />
+              <InputPassword password={password} setPassword={setPassword} />
+              <div className=" flex flex-col items-center">
+                <button
+                  className=" w-1/2 px-8 py-2 rounded-3xl bg-orange-600 border-b-8  border-orange-700 hover:bg-orange-700 text-white transition-all transform hover:scale-105"
+                  type="submit"
+                  onClick={handleSubmit}
+                >
+                  Play Now
+                </button>
+                <p className="text-white">
+                  Already got an account?{' '}
+                  <Link className="underline" href={'/login'}>
+                    Login
+                  </Link>
+                </p>
+              </div>
+            </form>
+          </div>
           <GoogleFacebookSignupButton />
         </div>
       </div>
