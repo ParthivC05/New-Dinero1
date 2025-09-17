@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 // import useSignup from '../hooks/useSignup';
 import slider1 from '@/assets/png/slider1.png';
 import slider2 from '@/assets/png/slider2.png';

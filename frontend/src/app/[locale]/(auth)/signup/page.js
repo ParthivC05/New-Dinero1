@@ -6,9 +6,3 @@ export default function Page() {
 
 
 
-//apple /banana/egg(boiled)/pomegranate/pineApple
-//sb khati ho/ rice quantity (less)
-//saam ko kuch khana jarurui  nhi h
-//sb khati ho/ rice quantity (less)
-//sugar (no sugar)
-//walk
