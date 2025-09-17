@@ -141,26 +141,26 @@ function Signup() {
           <Banner />
           <form className=" flex flex-col justify-center items-center gap-6">
             <input
-              className="w-full rounded-lg p-2 bg-inherit "
+              className="w-full pl-8 rounded-xl p-2 border  bg-stone-800 "
               type="email"
               name="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="username"
+              placeholder="Email Address"
             />
             <input
-              className="w-full rounded-lg p-2 bg-inherit "
+              className="w-full pl-8 rounded-xl p-2 border bg-stone-800 "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
               name="password"
               id="password"
-              placeholder="password"
+              placeholder="Password"
             />
             <div className=" flex flex-col items-center">
               <button
-                className="px-8 py-2 rounded-3xl bg-orange-600 hover:bg-orange-700 text-white"
+                className="px-8 py-2 rounded-3xl bg-orange-600 border-b-8  border-orange-700 text-white"
                 type="submit"
                 onClick={handleSubmit}
               >
