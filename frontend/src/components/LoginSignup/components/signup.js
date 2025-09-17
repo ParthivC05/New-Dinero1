@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Banner from './banner';
 import GoogleFacebookSignupButton from './googleSignupButton';
 import { SIGNUP } from '../constant';
@@ -7,6 +7,9 @@ import { isEmpty } from '@/lib/utils';
 import UserForm from '../UserForm';
 import { getAccessToken } from '@/services/storageUtils';
 import SignupStepper from './stepper';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import useGeoLocation from '@/common/hook/useGeoLocation';
+import AuthHeader from './header';
 
 const US_STATE_NAME_TO_CODE = {
   Alabama: 'AL',
@@ -124,19 +127,96 @@ function isBlockedRegion(geo, clientIP = null) {
 }
 
 function Signup() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const newPasswordKey = searchParams.get('newPasswordKey');
+
   const token = getAccessToken();
   const [open, setOpen] = useState(isEmpty(token));
+  const [isAuthenticated, setIsAuthenticated] = useState(!isEmpty(token));
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [toastState, setToastState] = useState({
     showToast: false,
     message: '',
     status: '',
   });
+  // const { signupData, signupLoading } = useSignup();
+  const location = useGeoLocation();
   const [geoInfo, setGeoInfo] = useState(null);
   const [geoBlock, setGeoBlock] = useState(false);
+
+  useEffect(() => {
+    const checkToken = () => {
+      const hasToken = !isEmpty(getAccessToken());
+      setIsAuthenticated(hasToken);
+      setOpen(!hasToken);
+    };
+    checkToken();
+    const timeoutId = setTimeout(checkToken, 100);
+    window.addEventListener('storage', checkToken);
+    window.addEventListener('focus', checkToken);
+    const intervalId = setInterval(checkToken, 500);
+    return () => {
+      clearTimeout(timeoutId);
+      clearInterval(intervalId);
+      window.removeEventListener('storage', checkToken);
+      window.removeEventListener('focus', checkToken);
+    };
+  }, [router]);
+
+  useEffect(() => {
+    async function fetchGeo() {
+      if (
+        location.loaded &&
+        !location.error &&
+        location.coordinates.lat &&
+        location.coordinates.lng
+      ) {
+        try {
+          // Fetch client IP in parallel with geolocation
+          const [ipResponse, geoResponse] = await Promise.all([
+            fetchClientIP(),
+            fetch(
+              `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${location.coordinates.lat}&longitude=${location.coordinates.lng}&localityLanguage=en`
+            ),
+          ]);
+
+          const clientIP = ipResponse;
+          const geoData = await geoResponse.json();
+
+          const geo = {
+            country_code: geoData.countryCode,
+            state_code: geoData.principalSubdivisionCode?.split('-')[1],
+            state_name: geoData.principalSubdivision,
+          };
+          setGeoInfo(geo);
+
+          if (isBlockedRegion(geo, clientIP)) {
+            setGeoBlock(true);
+            setToastState({
+              showToast: true,
+              message: 'Access from your region is restricted.',
+              status: 'error',
+            });
+          }
+        } catch (error) {
+          console.error('Error fetching geo/IP data:', error);
+        }
+      }
+    }
+    fetchGeo();
+  }, [location]);
+
+  if (pathname === '/reset-password' && newPasswordKey) {
+    return null;
+  }
+
   return (
-    <div className="w-1/2 bg-custom-gradient  ">
-      <div className='flex justify-center items-center'>
-        <SignupStepper/>
+    <div className="w-full h-[100lvh] bg-custom-gradient">
+      <AuthHeader />
+      <div className="flex justify-center items-center gap-6">
+        <SignupStepper />
         <div className="flex-row  justify-center items-center">
           <Banner />
           <UserForm

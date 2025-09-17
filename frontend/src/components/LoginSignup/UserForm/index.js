@@ -9,6 +9,7 @@ import useForgotPassword from '../hooks/useForgotPassword';
 import CustomDialog from '../TermsPrivacy';
 import useTermsPrivacy from '../TermsPrivacy/hooks/useTermsPrivacy';
 import { useEffect, useState } from 'react';
+import GoogleFacebookSignupButton from '../components/googleSignupButton';
 
 const UserForm = ({
   controls,
@@ -110,12 +111,14 @@ const UserForm = ({
               const error = fieldState?.error;
               return (
                 <div className="text-left flex flex-col">
-                  {!isCheckbox && (
-                    <label className="text-blue-100 tw-font-bold">{item.label}</label>
-                  )}
+                  {/* {!isCheckbox && (
+                    <label className="text-blue-100 tw-font-bold">
+                      {item.label}
+                    </label>
+                  )} */}
                   <div className="items-center space-x-2 mt-2 relative">
                     <div
-                      className={`${
+                      className={` bg-transparent${
                         error ? 'border-red-500' : 'border-gray-300'
                       } transition-colors duration-200`}
                     >
@@ -125,13 +128,17 @@ const UserForm = ({
                             type={showPassword ? 'text' : 'password'}
                             placeholder={item.placeholder}
                             {...field}
-                            className={`w-full ${error && 'border-red-500'} focus:bg-transparent`}
+                            className={`w-full  ${error && 'border-red-500'} focus:bg-transparent`}
                           />
                           <div
                             onClick={togglePasswordVisibility}
                             className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                           >
-                            {showPassword ? <Image src={eyeOff} alt="eye-off" /> : <Image src={eye} alt="eye" />}
+                            {showPassword ? (
+                              <Image src={eyeOff} alt="eye-off" />
+                            ) : (
+                              <Image src={eye} alt="eye" />
+                            )}
                           </div>
                         </div>
                       ) : isCheckbox ? (
@@ -141,8 +148,10 @@ const UserForm = ({
                             checked={field.value}
                             onCheckedChange={(checked) => {
                               field.onChange(checked);
-                              if (item.name === 'isAge') setIsAgeChecked(checked);
-                              if (item.name === 'terms') setTermsChecked(checked);
+                              if (item.name === 'isAge')
+                                setIsAgeChecked(checked);
+                              if (item.name === 'terms')
+                                setTermsChecked(checked);
                             }}
                             name={item.name}
                             {...field}
@@ -156,7 +165,10 @@ const UserForm = ({
                                   <span
                                     className="cursor-pointer underline text-blue-500"
                                     onClick={() => {
-                                      setDialogConfig({ isOpen: true, type: 'terms' });
+                                      setDialogConfig({
+                                        isOpen: true,
+                                        type: 'terms',
+                                      });
                                       fetchTerms();
                                     }}
                                   >
@@ -170,7 +182,10 @@ const UserForm = ({
                                   <span
                                     className="cursor-pointer underline text-blue-500"
                                     onClick={() => {
-                                      setDialogConfig({ isOpen: true, type: 'privacy' });
+                                      setDialogConfig({
+                                        isOpen: true,
+                                        type: 'privacy',
+                                      });
                                       fetchPrivacyPolicy();
                                     }}
                                   >
@@ -226,7 +241,7 @@ const UserForm = ({
           </Button>
           <Button
             type="submit"
-            className="w-[50%] bg-green-500 text-white rounded hover:bg-green-600"
+            className=" bg-orange-600 text-white rounded-lg hover:bg-orange-700"
             loading={loading}
             disabled={loading || isBlocked}
           >
@@ -235,17 +250,19 @@ const UserForm = ({
         </div>
       ) : (
         <>
-          <Button
-            type="submit"
-            className="w-full bg-green-500 py-2 !mt-10 text-white rounded hover:bg-green-600"
-            loading={loading}
-            disabled={loading || isBlocked}
-          >
-            {isSignUp ? 'Sign Up' : 'Sign In'}
-          </Button>
+          <div className='flex items-center justify-center'>
+            <Button
+              type="submit"
+              className=" w-1/3 bg-orange-600   !mt-10 text-white rounded-2xl hover:bg-orange-700"
+              loading={loading}
+              disabled={loading || isBlocked}
+            >
+              Play Now
+            </Button>
+          </div>
+          {/* <GoogleFacebookSignupButton /> */}
 
-
-          <Button
+          {/* <Button
             type="button"
             disabled={isBlocked || (isSignUp && !isMarkTick)}
             className="w-full border border-gray-300 bg-white text-black flex items-center justify-center gap-1 mt-4 hover:bg-gray-100"
@@ -271,10 +288,9 @@ const UserForm = ({
             }}
           >
             <span>{isSignUp? "Sign up with Google" : "Sign in with Google"}</span>
-          </Button>
+          </Button> */}
 
-
-          <Button
+          {/* <Button
             type="button"
             disabled={isBlocked || (isSignUp && !isMarkTick)}
             className="w-full border border-blue-600 bg-white text-black flex items-center justify-center gap-1 mt-2 hover:bg-blue-50"
@@ -300,7 +316,7 @@ const UserForm = ({
             }}
           >
             <span>{isSignUp? "Sign up with Facebook" : "Sign in with Facebook"}</span>
-          </Button>
+          </Button> */}
         </>
       )}
 

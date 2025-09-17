@@ -15,35 +15,74 @@ import { isEmpty } from '@/lib/utils';
 import CustomToast from '@/common/components/custom-toaster';
 import useSignup from './hooks/useSignup';
 import useGeoLocation from '@/common/hook/useGeoLocation';
+import Banner from './components/banner';
+import LineWithText from './components/lineWithText';
+import GoogleSignupButton from './components/googleSignupButton';
 
 const US_STATE_NAME_TO_CODE = {
-  "Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR",
-  "California": "CA", "Colorado": "CO", "Connecticut": "CT", "Delaware": "DE",
-  "Florida": "FL", "Georgia": "GA", "Hawaii": "HI", "Idaho": "ID",
-  "Illinois": "IL", "Indiana": "IN", "Iowa": "IA", "Kansas": "KS",
-  "Kentucky": "KY", "Louisiana": "LA", "Maine": "ME", "Maryland": "MD",
-  "Massachusetts": "MA", "Michigan": "MI", "Minnesota": "MN", "Mississippi": "MS",
-  "Missouri": "MO", "Montana": "MT", "Nebraska": "NE", "Nevada": "NV",
-  "New Hampshire": "NH", "New Jersey": "NJ", "New Mexico": "NM", "New York": "NY",
-  "North Carolina": "NC", "North Dakota": "ND", "Ohio": "OH", "Oklahoma": "OK",
-  "Oregon": "OR", "Pennsylvania": "PA", "Rhode Island": "RI", "South Carolina": "SC",
-  "South Dakota": "SD", "Tennessee": "TN", "Texas": "TX", "Utah": "UT",
-  "Vermont": "VT", "Virginia": "VA", "Washington": "WA", "West Virginia": "WV",
-  "Wisconsin": "WI", "Wyoming": "WY"
+  Alabama: 'AL',
+  Alaska: 'AK',
+  Arizona: 'AZ',
+  Arkansas: 'AR',
+  California: 'CA',
+  Colorado: 'CO',
+  Connecticut: 'CT',
+  Delaware: 'DE',
+  Florida: 'FL',
+  Georgia: 'GA',
+  Hawaii: 'HI',
+  Idaho: 'ID',
+  Illinois: 'IL',
+  Indiana: 'IN',
+  Iowa: 'IA',
+  Kansas: 'KS',
+  Kentucky: 'KY',
+  Louisiana: 'LA',
+  Maine: 'ME',
+  Maryland: 'MD',
+  Massachusetts: 'MA',
+  Michigan: 'MI',
+  Minnesota: 'MN',
+  Mississippi: 'MS',
+  Missouri: 'MO',
+  Montana: 'MT',
+  Nebraska: 'NE',
+  Nevada: 'NV',
+  'New Hampshire': 'NH',
+  'New Jersey': 'NJ',
+  'New Mexico': 'NM',
+  'New York': 'NY',
+  'North Carolina': 'NC',
+  'North Dakota': 'ND',
+  Ohio: 'OH',
+  Oklahoma: 'OK',
+  Oregon: 'OR',
+  Pennsylvania: 'PA',
+  'Rhode Island': 'RI',
+  'South Carolina': 'SC',
+  'South Dakota': 'SD',
+  Tennessee: 'TN',
+  Texas: 'TX',
+  Utah: 'UT',
+  Vermont: 'VT',
+  Virginia: 'VA',
+  Washington: 'WA',
+  'West Virginia': 'WV',
+  Wisconsin: 'WI',
+  Wyoming: 'WY',
 };
 
 // Blocked US states
-const BLOCKED_STATES = ["MI", "ID", "WA", "LA", "NV", "MT", "CT", "HI", "DE"];
+const BLOCKED_STATES = ['MI', 'ID', 'WA', 'LA', 'NV', 'MT', 'CT', 'HI', 'DE'];
 
 // Allowed IP addresses (exceptions to state blocking)
-const ALLOWED_IPS = ["50.158.74.231"];
+const ALLOWED_IPS = ['50.158.74.231'];
 
 // Only India + US are allowed
-const ALLOWED_COUNTRIES = ["US", "IN"];
+const ALLOWED_COUNTRIES = ['US', 'IN'];
 
 // Explicitly blocked countries
-const BLOCKED_COUNTRIES = ["MX"]; // Mexico
-
+const BLOCKED_COUNTRIES = ['MX']; // Mexico
 
 function normalizeState(stateCode, stateName) {
   if (stateCode) {
@@ -86,14 +125,14 @@ function isBlockedRegion(geo, clientIP = null) {
   if (BLOCKED_COUNTRIES.includes(geo.country_code)) return true;
 
   // India is fully allowed
-  if (geo.country_code === "IN") return false;
+  if (geo.country_code === 'IN') return false;
 
   // For US, only allow states not in BLOCKED_STATES
-  if (geo.country_code === "US" && BLOCKED_STATES.includes(stateCode)) return true;
+  if (geo.country_code === 'US' && BLOCKED_STATES.includes(stateCode))
+    return true;
 
   return false; // Otherwise allowed
 }
-
 
 const LoginSignup = () => {
   const router = useRouter();
@@ -137,14 +176,19 @@ const LoginSignup = () => {
 
   useEffect(() => {
     async function fetchGeo() {
-      if (location.loaded && !location.error && location.coordinates.lat && location.coordinates.lng) {
+      if (
+        location.loaded &&
+        !location.error &&
+        location.coordinates.lat &&
+        location.coordinates.lng
+      ) {
         try {
           // Fetch client IP in parallel with geolocation
           const [ipResponse, geoResponse] = await Promise.all([
             fetchClientIP(),
             fetch(
               `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${location.coordinates.lat}&longitude=${location.coordinates.lng}&localityLanguage=en`
-            )
+            ),
           ]);
 
           const clientIP = ipResponse;
@@ -183,16 +227,19 @@ const LoginSignup = () => {
         open={open}
         onOpenChange={(isOpen) => isOpen && isAuthenticated && setOpen(isOpen)}
         modal
-        className="w-full"
+        className="max-w-full w-full h-full"
       >
         <DialogContent
           onPointerDownOutside={(e) => e.preventDefault()}
           className="p-2 border-radius-0 gap-0 w-full sm:w-[800px] max-w-[98%] flex border-none"
         >
           <DialogTitle />
-          <DialogHeader className="w-full">
-            <div className="flex w-full h-full flex-col sm:flex-row">
-              <Tabs defaultValue="signIn" className="w-full sm:w-1/2 p-2 flex flex-col">
+          <DialogHeader className="w-full h-full">
+            <div className=" flex justify-center items-center bg-custom-gradient  w-full h-full ">
+              <Tabs
+                defaultValue="signIn"
+                className="w-full sm:w-1/2 p-2 flex flex-col"
+              >
                 <TabsList className="bg-dark-blue w-full text-gray-400">
                   <TabsTrigger
                     className="w-1/2 py-2 text-center font-semibold aria-selected:text-white aria-selected:text-[22px] aria-selected:border-b-2 aria-selected:border-green-500"
@@ -213,6 +260,9 @@ const LoginSignup = () => {
                 </TabsList>
 
                 <TabsContent value="signUp" className="flex-grow p-4">
+                  <h1>banner showing here</h1>
+                  
+                  <Banner />
                   <UserForm
                     controls={SIGNUP}
                     isSignUp
@@ -252,7 +302,7 @@ const LoginSignup = () => {
                 </TabsContent>
               </Tabs>
 
-              <div className="w-1/2 relative justify-center items-center max-[899px]:hidden sm:flex">
+              {/* <div className="w-1/2 relative justify-center items-center max-[899px]:hidden sm:flex">
                 {signupLoading ? (
                   <p className="text-white text-center">Loading banner...</p>
                 ) : signupData?.length > 0 ? (
@@ -265,7 +315,10 @@ const LoginSignup = () => {
                       className="w-full"
                     >
                       <img
-                        src={banner?.imageUrl || 'https://luckybird.io/img/back.47e88397.png'}
+                        src={
+                          banner?.imageUrl ||
+                          'https://luckybird.io/img/back.47e88397.png'
+                        }
                         alt={`banner-${index}`}
                         className="h-[434px] w-full max-h-[434px] object-cover object-right"
                       />
@@ -278,7 +331,7 @@ const LoginSignup = () => {
                     className="h-auto w-full max-h-[434px] object-cover"
                   />
                 )}
-              </div>
+              </div> */}
             </div>
           </DialogHeader>
         </DialogContent>
@@ -286,7 +339,9 @@ const LoginSignup = () => {
 
       <CustomToast
         showToast={toastState.showToast}
-        setShowToast={(val) => setToastState((prev) => ({ ...prev, showToast: val }))}
+        setShowToast={(val) =>
+          setToastState((prev) => ({ ...prev, showToast: val }))
+        }
         message={toastState.message}
         status={toastState.status}
         duration={2000}
