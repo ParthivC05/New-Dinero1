@@ -4,7 +4,7 @@ import slider1 from '@/assets/png/slider1.png';
 import slider2 from '@/assets/png/slider2.png';
 import Image from 'next/image';
 
-const sliderImages = [slider1, slider2, slider2, slider1];
+const sliderImages = [slider1, slider2, slider1];
 
 const getSlides = (images, perSlide = 2) => {
   const slides = [];
@@ -14,7 +14,7 @@ const getSlides = (images, perSlide = 2) => {
   return slides;
 };
 
-const slides = getSlides(sliderImages, 2);
+const slides = getSlides(sliderImages, 1);
 
 const AUTO_SLIDE_INTERVAL = 2500;
 function Banner() {
@@ -41,7 +41,7 @@ function Banner() {
                   key={i}
                   src={img}
                   alt={`Banner ${idx * 2 + i + 1}`}
-                  className="rounded-lg object-cover h-44 w-1/2"
+                  className="rounded-lg h-44 w-full"
                   style={{ minWidth: 180 }}
                 />
               ))}
@@ -67,7 +67,7 @@ function Banner() {
         {slides.map((_, idx) => (
           <button
             key={idx}
-            className={`w-2 h-2 rounded-full ${current === idx ? 'bg-pink-500' : 'bg-gray-500'}`}
+            className={`w-4 h-1 rounded  ${current === idx ? 'bg-pink-500' : 'bg-gray-500'}`}
             onClick={() => setCurrent(idx)}
             aria-label={`Go to slide ${idx + 1}`}
           />
