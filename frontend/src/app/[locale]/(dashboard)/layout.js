@@ -16,6 +16,7 @@ import initTranslations from '../../i18n';
 import ChatModule from './@chat/page';
 import LoginSignup from './@login/page';
 import './../global.scss';
+import 'sweetalert2/src/sweetalert2.scss';
 
 import SocketProvider from './SocketProvider';
 
