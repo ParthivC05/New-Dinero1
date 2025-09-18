@@ -1,14 +1,11 @@
 'use client';
-import { useState } from 'react';
 import Banner from './banner';
 import GoogleFacebookSignupButton from './googleSignupButton';
 import SignupStepper from './stepper';
 import AuthHeader from './header';
-import Link from 'next/link';
 import InputEmail from './inputEmail';
 import InputPassword from './inputPassword';
 import useSignupAuth from '../hooks/useSignupAuth';
-import CustomToast from '@/common/components/custom-toaster';
 
 function Signup({ setIsLogin }) {
   const { register, handleSubmit, onSubmit, isLoading, errors } =
@@ -51,15 +48,6 @@ function Signup({ setIsLogin }) {
           <GoogleFacebookSignupButton />
         </div>
       </div>
-      <CustomToast
-        showToast={toast.showToast}
-        setShowToast={(val) =>
-          setToast((prev) => ({ ...prev, showToast: val }))
-        }
-        message={toast.message}
-        status={toast.status}
-        duration={2000}
-      />
     </div>
   );
 }

@@ -1,7 +1,12 @@
-import { message } from '@/assets/svg';
+import { useRef, useEffect } from 'react';
 import React from 'react';
 
 function InputEmail({ register, errors }) {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.focus(); // focus when component mounts
+  }, []);
   return (
     <div className="relative">
       <input

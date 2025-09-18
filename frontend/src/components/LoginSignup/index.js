@@ -220,7 +220,6 @@ const LoginSignup = () => {
   if (pathname === '/reset-password' && newPasswordKey) {
     return null;
   }
-  console.log(isLogin);
   return (
     <>
       <Dialog
