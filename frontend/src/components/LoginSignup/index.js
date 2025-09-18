@@ -15,6 +15,8 @@ import { isEmpty } from '@/lib/utils';
 import CustomToast from '@/common/components/custom-toaster';
 import useSignup from './hooks/useSignup';
 import useGeoLocation from '@/common/hook/useGeoLocation';
+import Login from '@/components/LoginSignup/components/login';
+import Signup from './components/signup';
 
 const US_STATE_NAME_TO_CODE = {
   Alabama: 'AL',
@@ -132,6 +134,7 @@ function isBlockedRegion(geo, clientIP = null) {
 }
 
 const LoginSignup = () => {
+  const [isLogin, setIsLogin] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -217,7 +220,7 @@ const LoginSignup = () => {
   if (pathname === '/reset-password' && newPasswordKey) {
     return null;
   }
-
+console.log(isLogin);
   return (
     <>
       <Dialog
@@ -230,102 +233,9 @@ const LoginSignup = () => {
           onPointerDownOutside={(e) => e.preventDefault()}
           className="p-2 border-radius-0 gap-0 w-full sm:w-[800px] max-w-[98%] flex border-none"
         >
-          <DialogTitle />
           <DialogHeader className="w-full">
             <div className="flex w-full h-full flex-col sm:flex-row">
-              <Tabs
-                defaultValue="signIn"
-                className="w-full sm:w-1/2 p-2 flex flex-col"
-              >
-                <TabsList className="bg-dark-blue w-full text-gray-400">
-                  <TabsTrigger
-                    className="w-1/2 py-2 text-center font-semibold aria-selected:text-white aria-selected:text-[22px] aria-selected:border-b-2 aria-selected:border-green-500"
-                    value="signUp"
-                    style={{ color: '#fff' }}
-                    onClick={() => setIsForgotPassword(false)}
-                  >
-                    Sign Up
-                  </TabsTrigger>
-                  <TabsTrigger
-                    className="w-1/2 py-2 text-center font-semibold aria-selected:text-white aria-selected:text-[22px] aria-selected:border-b-2 aria-selected:border-green-500"
-                    value="signIn"
-                    style={{ color: '#fff' }}
-                    onClick={() => setIsForgotPassword(false)}
-                  >
-                    Sign In
-                  </TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="signUp" className="flex-grow p-4">
-                  <UserForm
-                    controls={SIGNUP}
-                    isSignUp
-                    setOpen={setOpen}
-                    setToastState={setToastState}
-                    geoInfo={geoInfo}
-                    isBlocked={geoBlock}
-                  />
-                </TabsContent>
-
-                <TabsContent value="signIn" className="flex-grow p-4">
-                  {isForgotPassword ? (
-                    <>
-                      <p className="text-[rgb(var(--lb-blue-250))] text-[14px] mb-2">
-                        Please enter your email. We will send you a reset link.
-                      </p>
-                      <UserForm
-                        controls={FORGOT_PASSWORD}
-                        setOpen={setOpen}
-                        setIsForgotPassword={setIsForgotPassword}
-                        isForgotPassword
-                        setToastState={setToastState}
-                        geoInfo={geoInfo}
-                        isBlocked={geoBlock}
-                      />
-                    </>
-                  ) : (
-                    <UserForm
-                      controls={SIGNIN}
-                      setOpen={setOpen}
-                      setIsForgotPassword={setIsForgotPassword}
-                      setToastState={setToastState}
-                      geoInfo={geoInfo}
-                      isBlocked={geoBlock}
-                    />
-                  )}
-                </TabsContent>
-              </Tabs>
-
-              <div className="w-1/2 relative justify-center items-center max-[899px]:hidden sm:flex">
-                {signupLoading ? (
-                  <p className="text-white text-center">Loading banner...</p>
-                ) : signupData?.length > 0 ? (
-                  signupData.map((banner, index) => (
-                    <a
-                      key={index}
-                      href={banner?.imageUrl || '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full"
-                    >
-                      <img
-                        src={
-                          banner?.imageUrl ||
-                          'https://luckybird.io/img/back.47e88397.png'
-                        }
-                        alt={`banner-${index}`}
-                        className="h-[434px] w-full max-h-[434px] object-cover object-right"
-                      />
-                    </a>
-                  ))
-                ) : (
-                  <img
-                    src="https://luckybird.io/img/back.47e88397.png"
-                    alt="default banner"
-                    className="h-auto w-full max-h-[434px] object-cover"
-                  />
-                )}
-              </div>
+            {isLogin ? <Login setIsLogin={setIsLogin} /> : <Signup setIsLogin={setIsLogin} />}
             </div>
           </DialogHeader>
         </DialogContent>

@@ -10,7 +10,7 @@ import InputPassword from './inputPassword';
 import useSignupAuth from '../hooks/useSignupAuth';
 import CustomToast from '@/common/components/custom-toaster';
 
-function Signup() {
+function Signup({ setIsLogin }) {
   const [toast, setToast] = useState({
     showToast: false,
     message: '',
@@ -20,7 +20,7 @@ function Signup() {
   );
 
   return (
-    <div className="p-6 h-screen w-full  bg-custom-gradient">
+    <div className="p-2 h-full w-full  bg-custom-gradient">
       <AuthHeader />
       <div className="md:flex md:justify-center md:items-center md:gap-2">
         <SignupStepper />
@@ -28,7 +28,7 @@ function Signup() {
           <Banner />
           <div className="max-w-xl mx-auto">
             <form
-              className=" flex flex-col gap-4"
+              className=" flex flex-col gap-2"
               onSubmit={handleSubmit(onSubmit)}
             >
               <InputEmail register={register} errors={errors} />
@@ -43,9 +43,12 @@ function Signup() {
                 </button>
                 <p className="text-white">
                   Already got an account?{' '}
-                  <Link className="underline" href={'/login'}>
+                  <button
+                    className="underline hover:bg-transparent"
+                    onClick={() => setIsLogin(true)}
+                  >
                     Login
-                  </Link>
+                  </button>
                 </p>
               </div>
             </form>

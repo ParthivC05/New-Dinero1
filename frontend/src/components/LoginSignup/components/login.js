@@ -10,7 +10,7 @@ import InputEmail from '@/components/LoginSignup/components/inputEmail';
 import useLogin from '../hooks/useLogin';
 import CustomToast from '@/common/components/custom-toaster';
 
-function Login() {
+function Login({setIsLogin}) {
   const [toast, setToast] = useState({
     showToast: false,
     message: '',
@@ -21,13 +21,13 @@ function Login() {
   
   return (
     <>
-      <div className=" p-6 h-screen w-full bg-custom-gradient ">
+      <div className=" p-2 h-full w-full bg-custom-gradient ">
         <AuthHeader />
         <Banner />
 
         <div className="max-w-xl mx-auto">
           <form
-            className="flex flex-col gap-4"
+            className="flex flex-col gap-2"
             onSubmit={handleSubmit(onSubmit)}
           >
             <InputEmail register={register} errors={errors} />
@@ -40,9 +40,10 @@ function Login() {
               >
                 {isLoading ? 'Play Now...' : 'Play Now'}
               </button>
-              <Link className="text-white underline pt-2" href={'#'}>
-                Forgot your password?
-              </Link>
+              <button className="text-white underline hover:bg-transparent " 
+                onClick={() => setIsLogin(false) }>
+                Create an account
+              </button>
             </div>
           </form>
         </div>
