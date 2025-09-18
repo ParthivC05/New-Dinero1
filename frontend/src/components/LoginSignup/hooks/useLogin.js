@@ -51,11 +51,6 @@ function useLogin({ setToast }) {
         message: apiMessage,
         status: 'error',
       });
-    //   //sending errors to the form
-    //   setError('username', {
-    //     type: 'manual',
-    //     message: apiMessage,
-    //   });
     }
   };
 
