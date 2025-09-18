@@ -220,7 +220,7 @@ const LoginSignup = () => {
   if (pathname === '/reset-password' && newPasswordKey) {
     return null;
   }
-console.log(isLogin);
+  console.log(isLogin);
   return (
     <>
       <Dialog
@@ -229,13 +229,18 @@ console.log(isLogin);
         modal
         className="w-full"
       >
+        <DialogTitle />
         <DialogContent
           onPointerDownOutside={(e) => e.preventDefault()}
           className="p-2 border-radius-0 gap-0 w-full sm:w-[800px] max-w-[98%] flex border-none"
         >
           <DialogHeader className="w-full">
             <div className="flex w-full h-full flex-col sm:flex-row">
-            {isLogin ? <Login setIsLogin={setIsLogin} /> : <Signup setIsLogin={setIsLogin} />}
+              {isLogin ? (
+                <Login setIsLogin={setIsLogin} />
+              ) : (
+                <Signup setIsLogin={setIsLogin} />
+              )}
             </div>
           </DialogHeader>
         </DialogContent>

@@ -10,15 +10,9 @@ import InputEmail from '@/components/LoginSignup/components/inputEmail';
 import useLogin from '../hooks/useLogin';
 import CustomToast from '@/common/components/custom-toaster';
 
-function Login({setIsLogin}) {
-  const [toast, setToast] = useState({
-    showToast: false,
-    message: '',
-  });
-  const { register, handleSubmit, onSubmit, isLoading, errors } = useLogin({
-    setToast,
-  });
-  
+function Login({ setIsLogin }) {
+  const { register, handleSubmit, onSubmit, isLoading, errors } = useLogin();
+
   return (
     <>
       <div className=" p-2 h-full w-full bg-custom-gradient ">
@@ -40,8 +34,10 @@ function Login({setIsLogin}) {
               >
                 {isLoading ? 'Play Now...' : 'Play Now'}
               </button>
-              <button className="text-white underline hover:bg-transparent " 
-                onClick={() => setIsLogin(false) }>
+              <button
+                className="text-white underline hover:bg-transparent "
+                onClick={() => setIsLogin(false)}
+              >
                 Create an account
               </button>
             </div>
@@ -50,15 +46,6 @@ function Login({setIsLogin}) {
 
         <GoogleFacebookSignupButton />
       </div>
-      <CustomToast
-        showToast={toast.showToast}
-        setShowToast={(val) =>
-          setToast((prev) => ({ ...prev, showToast: val }))
-        }
-        message={toast.message}
-        status={toast.status}
-        duration={2000}
-      />
     </>
   );
 }

@@ -11,13 +11,8 @@ import useSignupAuth from '../hooks/useSignupAuth';
 import CustomToast from '@/common/components/custom-toaster';
 
 function Signup({ setIsLogin }) {
-  const [toast, setToast] = useState({
-    showToast: false,
-    message: '',
-  });
-  const { register, handleSubmit, onSubmit, isLoading, errors } = useSignupAuth(
-    { setToast }
-  );
+  const { register, handleSubmit, onSubmit, isLoading, errors } =
+    useSignupAuth();
 
   return (
     <div className="p-2 h-full w-full  bg-custom-gradient">

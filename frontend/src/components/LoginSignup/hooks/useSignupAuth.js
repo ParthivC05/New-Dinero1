@@ -5,8 +5,9 @@ import { addLoginToken } from '@/services/storageUtils';
 import useGetUserDeatil from '@/common/hook/useGetUserDeatil';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useStateContext } from '@/store';
+import Swal from 'sweetalert2';
 
-function useSignupAuth({ setToast }) {
+function useSignupAuth() {
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -30,10 +31,11 @@ function useSignupAuth({ setToast }) {
       addLoginToken(token);
       setLoading(false);
       getUser();
-      setToast({
-        showToast: true,
-        message: ` Signed Up Successfully`,
-        status: 'success',
+      Swal.fire({
+        icon: 'success',
+        title: 'Signed Up Successfully',
+        showConfirmButton: false,
+        timer: 1500,
       });
       router.push('/');
     } catch (error) {
@@ -45,10 +47,11 @@ function useSignupAuth({ setToast }) {
         error?.message ||
         fallbackMessage;
       //using custom toast
-      setToast({
-        showToast: true,
-        message: apiMessage,
-        status: 'error',
+      Swal.fire({
+        icon: 'error',
+        title: apiMessage,
+        showConfirmButton: false,
+        timer: 1500,
       });
     }
   };
