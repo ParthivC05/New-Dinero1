@@ -9,7 +9,6 @@ import useForgotPassword from '../hooks/useForgotPassword';
 import CustomDialog from '../TermsPrivacy';
 import useTermsPrivacy from '../TermsPrivacy/hooks/useTermsPrivacy';
 import { useEffect, useState } from 'react';
-import GoogleFacebookSignupButton from '../components/googleSignupButton';
 
 const UserForm = ({
   controls,
@@ -49,7 +48,6 @@ const UserForm = ({
     setIsMarkTick(!!isAgeChecked && !!termsChecked);
   }, [isAgeChecked, termsChecked]);
 
-  
   const onSubmit = (data) => {
     if (isSignUp) {
       if (!data.isAge || !data.terms) {
@@ -76,8 +74,13 @@ const UserForm = ({
     originalOnSubmit(data);
   };
 
-  const { termsData, privacyData, fetchTerms, fetchPrivacyPolicy, termsPrivacyLoading } =
-    useTermsPrivacy();
+  const {
+    termsData,
+    privacyData,
+    fetchTerms,
+    fetchPrivacyPolicy,
+    termsPrivacyLoading,
+  } = useTermsPrivacy();
 
   const [dialogConfig, setDialogConfig] = useState({
     isOpen: false,
@@ -111,14 +114,14 @@ const UserForm = ({
               const error = fieldState?.error;
               return (
                 <div className="text-left flex flex-col">
-                  {/* {!isCheckbox && (
+                  {!isCheckbox && (
                     <label className="text-blue-100 tw-font-bold">
                       {item.label}
                     </label>
-                  )} */}
+                  )}
                   <div className="items-center space-x-2 mt-2 relative">
                     <div
-                      className={` bg-transparent${
+                      className={`${
                         error ? 'border-red-500' : 'border-gray-300'
                       } transition-colors duration-200`}
                     >
@@ -128,7 +131,7 @@ const UserForm = ({
                             type={showPassword ? 'text' : 'password'}
                             placeholder={item.placeholder}
                             {...field}
-                            className={`w-full  ${error && 'border-red-500'} focus:bg-transparent`}
+                            className={`w-full ${error && 'border-red-500'} focus:bg-transparent`}
                           />
                           <div
                             onClick={togglePasswordVisibility}
@@ -241,7 +244,7 @@ const UserForm = ({
           </Button>
           <Button
             type="submit"
-            className=" bg-orange-600 text-white rounded-lg hover:bg-orange-700"
+            className="w-[50%] bg-green-500 text-white rounded hover:bg-green-600"
             loading={loading}
             disabled={loading || isBlocked}
           >
@@ -250,19 +253,16 @@ const UserForm = ({
         </div>
       ) : (
         <>
-          <div className='flex items-center justify-center'>
-            <Button
-              type="submit"
-              className=" w-1/3 bg-orange-600   !mt-10 text-white rounded-2xl hover:bg-orange-700"
-              loading={loading}
-              disabled={loading || isBlocked}
-            >
-              Play Now
-            </Button>
-          </div>
-          {/* <GoogleFacebookSignupButton /> */}
+          <Button
+            type="submit"
+            className="w-full bg-green-500 py-2 !mt-10 text-white rounded hover:bg-green-600"
+            loading={loading}
+            disabled={loading || isBlocked}
+          >
+            {isSignUp ? 'Sign Up' : 'Sign In'}
+          </Button>
 
-          {/* <Button
+          <Button
             type="button"
             disabled={isBlocked || (isSignUp && !isMarkTick)}
             className="w-full border border-gray-300 bg-white text-black flex items-center justify-center gap-1 mt-4 hover:bg-gray-100"
@@ -278,7 +278,8 @@ const UserForm = ({
               if (isSignUp && !isMarkTick) {
                 setToastState?.({
                   showToast: true,
-                  message: 'Please accept Terms of Use, Privacy Policy, and Age/State restriction.',
+                  message:
+                    'Please accept Terms of Use, Privacy Policy, and Age/State restriction.',
                   status: 'error',
                 });
                 return;
@@ -287,10 +288,12 @@ const UserForm = ({
                 process.env.NEXT_PUBLIC_BACKEND_URL + '/api/v1/auth/sso/google';
             }}
           >
-            <span>{isSignUp? "Sign up with Google" : "Sign in with Google"}</span>
-          </Button> */}
+            <span>
+              {isSignUp ? 'Sign up with Google' : 'Sign in with Google'}
+            </span>
+          </Button>
 
-          {/* <Button
+          <Button
             type="button"
             disabled={isBlocked || (isSignUp && !isMarkTick)}
             className="w-full border border-blue-600 bg-white text-black flex items-center justify-center gap-1 mt-2 hover:bg-blue-50"
@@ -306,17 +309,21 @@ const UserForm = ({
               if (isSignUp && !isMarkTick) {
                 setToastState?.({
                   showToast: true,
-                  message: 'Please accept Terms of Use, Privacy Policy, and Age/State restriction.',
+                  message:
+                    'Please accept Terms of Use, Privacy Policy, and Age/State restriction.',
                   status: 'error',
                 });
                 return;
               }
               window.location.href =
-                process.env.NEXT_PUBLIC_BACKEND_URL + '/api/v1/auth/sso/facebook';
+                process.env.NEXT_PUBLIC_BACKEND_URL +
+                '/api/v1/auth/sso/facebook';
             }}
           >
-            <span>{isSignUp? "Sign up with Facebook" : "Sign in with Facebook"}</span>
-          </Button> */}
+            <span>
+              {isSignUp ? 'Sign up with Facebook' : 'Sign in with Facebook'}
+            </span>
+          </Button>
         </>
       )}
 

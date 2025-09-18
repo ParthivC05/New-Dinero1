@@ -15,9 +15,6 @@ import { isEmpty } from '@/lib/utils';
 import CustomToast from '@/common/components/custom-toaster';
 import useSignup from './hooks/useSignup';
 import useGeoLocation from '@/common/hook/useGeoLocation';
-import Banner from './components/banner';
-import LineWithText from './components/lineWithText';
-import GoogleSignupButton from './components/googleSignupButton';
 
 const US_STATE_NAME_TO_CODE = {
   Alabama: 'AL',
@@ -227,15 +224,15 @@ const LoginSignup = () => {
         open={open}
         onOpenChange={(isOpen) => isOpen && isAuthenticated && setOpen(isOpen)}
         modal
-        className="max-w-full w-full h-full"
+        className="w-full"
       >
         <DialogContent
           onPointerDownOutside={(e) => e.preventDefault()}
           className="p-2 border-radius-0 gap-0 w-full sm:w-[800px] max-w-[98%] flex border-none"
         >
           <DialogTitle />
-          <DialogHeader className="w-full h-full">
-            <div className=" flex justify-center items-center bg-custom-gradient  w-full h-full ">
+          <DialogHeader className="w-full">
+            <div className="flex w-full h-full flex-col sm:flex-row">
               <Tabs
                 defaultValue="signIn"
                 className="w-full sm:w-1/2 p-2 flex flex-col"
@@ -260,9 +257,6 @@ const LoginSignup = () => {
                 </TabsList>
 
                 <TabsContent value="signUp" className="flex-grow p-4">
-                  <h1>banner showing here</h1>
-                  
-                  <Banner />
                   <UserForm
                     controls={SIGNUP}
                     isSignUp
@@ -302,7 +296,7 @@ const LoginSignup = () => {
                 </TabsContent>
               </Tabs>
 
-              {/* <div className="w-1/2 relative justify-center items-center max-[899px]:hidden sm:flex">
+              <div className="w-1/2 relative justify-center items-center max-[899px]:hidden sm:flex">
                 {signupLoading ? (
                   <p className="text-white text-center">Loading banner...</p>
                 ) : signupData?.length > 0 ? (
@@ -331,7 +325,7 @@ const LoginSignup = () => {
                     className="h-auto w-full max-h-[434px] object-cover"
                   />
                 )}
-              </div> */}
+              </div>
             </div>
           </DialogHeader>
         </DialogContent>
