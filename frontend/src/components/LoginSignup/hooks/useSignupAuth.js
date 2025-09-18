@@ -1,4 +1,4 @@
-import { userLogin } from '@/services/postRequest';
+import { userLogin, userSignUp } from '@/services/postRequest';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { addLoginToken } from '@/services/storageUtils';
@@ -6,7 +6,7 @@ import useGetUserDeatil from '@/common/hook/useGetUserDeatil';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useStateContext } from '@/store';
 
-function useLogin({ setToast }) {
+function useSignupAuth({ setToast }) {
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -21,10 +21,10 @@ function useLogin({ setToast }) {
   const onSubmit = async (value) => {
     setLoading(true);
     try {
-      const response = await userLogin(value);
+      const response = await userSignUp(value);
       const { data = {} } = response || {};
       const { user: userInfo, accessToken } = data || {};
-      const token = accessToken;
+      const token = data?.user?.token;
 
       dispatch({ type: 'SET_USER', payload: userInfo });
       addLoginToken(token);
@@ -32,7 +32,7 @@ function useLogin({ setToast }) {
       getUser();
       setToast({
         showToast: true,
-        message: ` Logged In Successfully`,
+        message: ` Signed Up Successfully`,
         status: 'success',
       });
       router.push('/');
@@ -62,4 +62,4 @@ function useLogin({ setToast }) {
   };
 }
 
-export default useLogin;
+export default useSignupAuth;
