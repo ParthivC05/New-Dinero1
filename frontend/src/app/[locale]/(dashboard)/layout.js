@@ -85,7 +85,7 @@ export default async function RootLayout({ children, params }) {
                     <SidebarInset>
                       <Header />
                       <div className="h-[calc(100vh-121px)] md:h-[calc(100vh-63px)] w-full overflow-y-auto scrollbar-thin scrollable-Content-Home">
-                        <div className="w-full px-[2vw] py-4 bg-[hsl(var(--main-background))] ">
+                        <div className="w-full px-[2vw] py-4 bg-black max-sm:bg-custom-gradient bg-[hsl(var(--main-background))] ">
                           <div className="max-w-[1200px] mx-auto">
                             {children}
                           </div>

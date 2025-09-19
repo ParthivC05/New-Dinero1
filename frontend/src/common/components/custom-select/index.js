@@ -16,7 +16,6 @@ function CustomSelect({
   contentClassName = '',
   // ...props
 }) {
-
   return (
     <Select value={selectedValue} onValueChange={onValueChange}>
       <SelectTrigger
@@ -42,7 +41,5 @@ function CustomSelect({
     </Select>
   );
 }
-
-
 
 export default CustomSelect;
