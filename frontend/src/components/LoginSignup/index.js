@@ -228,6 +228,7 @@ const LoginSignup = () => {
         modal
         className="w-full border-none "
       >
+        <div className=" w-screen h-screen bg-black/30 backdrop-blur-sm "></div>
         <DialogTitle />
         <DialogContent
           onPointerDownOutside={(e) => e.preventDefault()}
