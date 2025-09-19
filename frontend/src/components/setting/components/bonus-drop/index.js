@@ -16,18 +16,11 @@ const BonusDrop = () => {
     status,
   } = useBonusDrop();
   return (
-    <section className="border border-[rgb(var(--lb-blue-300))] rounded">
+    <section className="rounded">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="p-4 border-b border-[rgb(var(--lb-blue-300))]">
+        <div className="">
           <div className="mb-2">
-            <div className="text-white text-[14px] font-bold">
-              Redeem Bonus Drop
-            </div>
-            <div className="text-[rgb(var(--lb-blue-250))] text-[14px] mb-2 border-b border-[rgb(var(--lb-blue-300))] pb-3">
-              Find bonus drop codes on our social media&apos;s such as Twitter &
-              Telegram
-            </div>
-            <div className="text-white text-[14px] font-bold">
+            <div className="text-white font-bold mb-2.5">
               Code <span className="text-red-500">*</span>
             </div>
             <Controller
@@ -40,7 +33,8 @@ const BonusDrop = () => {
                   <>
                     <Input
                       {...field}
-                      className="border border-[rgb(var(--lb-blue-200))] w-[80%] lg:w-[55%]"
+                      placeholder="Enter Code"
+                      className="bg-neutral-800 w-full"
                     />
                     {error && (
                       <div
@@ -59,11 +53,11 @@ const BonusDrop = () => {
             />
           </div>
         </div>
-        <div className="mt-0 p-4 flex justify-end">
+        <div className="mt-0 p-4 flex justify-center">
           <Button
             loading={loading}
             disabled={loading}
-            className="bg-green-500 py-2  text-white rounded hover:bg-green-600"
+            className="bg-red-500 py-2  text-white rounded-full hover:bg-red-600"
           >
             Submit
           </Button>

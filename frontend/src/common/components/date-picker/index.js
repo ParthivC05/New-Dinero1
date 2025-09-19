@@ -31,7 +31,7 @@ function CustomDatePicker({ onChange, className, ...props }) {
         <Button
           variant="outline"
           className={cn(
-            'w-full justify-start text-left font-normal p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500',
+            'w-full justify-start hover:bg-neutral-800 hover:text-white border-0 h-10 text-left font-normal p-2 rounded-md shadow-sm focus:ring-0',
             !date && 'text-gray-500',
             className
           )}
@@ -46,7 +46,7 @@ function CustomDatePicker({ onChange, className, ...props }) {
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-auto p-0 bg-white rounded-lg shadow-lg border border-gray-200"
+        className="bg-neutral-800 rounded-lg shadow-lg w-fit p-0 h-60 border-0"
         align="start"
       >
         <DatePicker

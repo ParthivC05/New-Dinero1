@@ -20,19 +20,19 @@ function CustomSelect({
   return (
     <Select value={selectedValue} onValueChange={onValueChange}>
       <SelectTrigger
-        className={`w-[180px] bg-[rgb(var(--secondary-btn-color))] text-white border-[rgb(var(--secondary-btn-color))] hover:bg-[hsl(var(--lb-blue-800))] ${className}`}
+        className={`w-[180px] bg-neutral-800 text-white hover:bg-neutral-800 border-0 h-10 ${className}`}
       >
         <SelectValue placeholder={placeholder} className="text-white" />
       </SelectTrigger>
       <SelectContent
-        className={`bg-[rgb(var(--secondary-btn-color))] border-[rgb(var(--secondary-btn-color))] ${contentClassName}`}
+        className={`bg-neutral-800 border-0 ${contentClassName}`}
       >
         <SelectGroup>
           {options.map((option) => (
             <SelectItem
               key={option?.value}
               value={option?.value}
-              className="text-white bg-[hsl(var(--lb-blue-950))] hover:bg-[hsl(var(--lb-blue-950))]"
+              className="text-white bg-neutral-800"
             >
               {option?.label}
             </SelectItem>

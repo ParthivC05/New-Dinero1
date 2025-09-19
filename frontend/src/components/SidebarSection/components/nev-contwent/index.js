@@ -40,77 +40,80 @@ const NavContent = () => {
   const buttonComponents = ({ url, id, icon, title }) => {
     return (
       <SidebarMenuItem key={`${id}-${url}`} className="list-none">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <SidebarMenuButton
-                onClick={() => handleClick(url)}
-                className="px-3 py-[23px] shiny-hover hover:border hover:border-white hover:bg-blue-900 group-data-[collapsible=icon]:!w-[3rem] group-data-[collapsible=icon]:m-auto group-data-[collapsible=icon]:!h-[3rem] group-data-[collapsible=icon]:!px-[1rem]"
-              >
-                <Image src={icon} alt={title} width={18} height={18} />
-                <span className="text-white text-sm/[17px] font-semibold group-data-[collapsible=icon]:invisible">
-                  {title}
-                </span>
-              </SidebarMenuButton>
-            </TooltipTrigger>
-            <TooltipContent side="right" sideOffset={8}>
-              {title}
-            </TooltipContent>
-          </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <SidebarMenuButton
+              onClick={() => handleClick(url)}
+              className={`group-data-[collapsible=icon]:!w-[3rem] group-data-[collapsible=icon]:m-auto group-data-[collapsible=icon]:!h-[3rem] group-data-[collapsible=icon]:!px-[1rem]
+                w-full font-bold text-lg flex items-center gap-2 cursor-pointer transition-colors p-3 rounded-lg
+                bg-new-primary hover:bg-[#2a1a2a] hover:text-yellow-400 text-white`}
+            >
+              <Image src={icon} alt={title} width={18} height={18} />
+              <span className="text-sm/[17px] font-semibold group-data-[collapsible=icon]:invisible">
+                {title}
+              </span>
+            </SidebarMenuButton>
+          </TooltipTrigger>
+          <TooltipContent side="right" sideOffset={8}>
+            {title}
+          </TooltipContent>
+        </Tooltip>
       </SidebarMenuItem>
     );
   };
 
   return (
-    <>
+    <div className="grid gap-2">
       {updateSidebarData?.map(({ id, icon, title, type, options = [] }) => {
         if (type === 'dropdown') {
           return (
             <Collapsible
               key={`${id}-${title}`}
-              open={openDropdown === id }
+              open={openDropdown === id}
               onOpenChange={() => {
                 toggleDropdown(id);
               }}
               defaultOpen={false}
-              className="group/collapsible rounded mt-3"
+              className="group/collapsible rounded"
             >
               <SidebarGroup className="p-0">
                 <SidebarGroupLabel
                   asChild
                   className="px-3 py-[23px] group-data-[collapsible=icon]:px-[8px]"
                 >
-                        <CollapsibleTrigger
-                          aria-label={`Toggle ${title}`}
-                          className="hover:bg-blue-900 shiny-hover hover:border hover:border-white group-data-[collapsible=icon]:opacity-100 group-data-[collapsible=icon]:mt-0 group-data-[collapsible=icon]:m-auto !bg-[rgb(var(--header))]"
-                        >
-                          <Image
-                            className="mr-2 ml-0 group-data-[collapsible=icon]:mr-0 group-data-[collapsible=icon]:ml-[11px]"
-                            src={icon}
-                            alt="title"
-                            width={18}
-                            height={18}
-                          />
-                          <span className="text-white text-sm/[17px] group-data-[collapsible=icon]:hidden">
-                            {t(title)}
-                          </span>
-                          <Image
-                            className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180 group-data-[collapsible=icon]:ml-0 group-data-[collapsible=icon]:hidden"
-                            src={chevronDown}
-                            alt="down-icon"
-                            width={18}
-                            height={18}
-                          />
-                          <Image
-                            className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180 group-data-[collapsible=icon]:ml-0 hidden group-data-[collapsible=icon]:block"
-                            src={chevronRight}
-                            alt="down-icon"
-                            width={16}
-                            height={16}
-                          />
-                        </CollapsibleTrigger>
+                  <CollapsibleTrigger
+                    aria-label={`Toggle ${title}`}
+                    className="group-data-[collapsible=icon]:opacity-100 group-data-[collapsible=icon]:mt-0 group-data-[collapsible=icon]:m-auto !bg-[rgb(var(--header))]
+                    w-full flex items-center px-4 py-6 rounded-xl border-2 border-yellow-400 text-white font-bold text-lg bg-gradient-to-r from-black via-[#1c0f18] to-black hover:bg-gradient-to-r hover:from-[#2a1a2a] hover:via-[#1c0f18] hover:to-[#2a1a2a] transition-all duration-200"
+                  >
+                    <Image
+                      className="mr-2 ml-0 group-data-[collapsible=icon]:mr-0 group-data-[collapsible=icon]:ml-[11px]"
+                      src={icon}
+                      alt="title"
+                      width={18}
+                      height={18}
+                    />
+                    <span className="text-sm/[17px] group-data-[collapsible=icon]:hidden">
+                      {t(title)}
+                    </span>
+                    <Image
+                      className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180 group-data-[collapsible=icon]:ml-0 group-data-[collapsible=icon]:hidden"
+                      src={chevronDown}
+                      alt="down-icon"
+                      width={18}
+                      height={18}
+                    />
+                    <Image
+                      className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180 group-data-[collapsible=icon]:ml-0 hidden group-data-[collapsible=icon]:block"
+                      src={chevronRight}
+                      alt="down-icon"
+                      width={16}
+                      height={16}
+                    />
+                  </CollapsibleTrigger>
                 </SidebarGroupLabel>
                 <CollapsibleContent
-                  className={`group-data-[collapsible=icon]:fixed group-data-[collapsible=icon]:left-[5rem] group-data-[collapsible=icon]:top-[7rem] group-data-[collapsible=icon]:bg-[hsl(var(--side-bar-card))] group-data-[collapsible=icon]:overflow-y-auto group-data-[collapsible=icon]:max-h-[60vh] ${styles.customScrollbar} !bg-[rgb(var(--secondary-btn-color))] `}
+                  className={`grid gap-2 group-data-[collapsible=icon]:fixed group-data-[collapsible=icon]:left-[5rem] group-data-[collapsible=icon]:top-[7rem] group-data-[collapsible=icon]:bg-[hsl(var(--side-bar-card))] group-data-[collapsible=icon]:overflow-y-auto group-data-[collapsible=icon]:max-h-[60vh] ${styles.customScrollbar} bg-transparent py-2`}
                 >
                   {options?.map(({ url, title, icon, button }) => {
                     if (!title) return null;
@@ -122,14 +125,26 @@ const NavContent = () => {
                             handleClick(url);
                           } else {
                             toggleDropdown(id);
-                            dispatch({ type: 'SET_LEFT_PANEL', payload: false });
+                            dispatch({
+                              type: 'SET_LEFT_PANEL',
+                              payload: false,
+                            });
                           }
                         }}
                         key={`${id}-${url}`}
                       >
-                        <SidebarMenuButton className="flex px-3 py-[23px] hover:bg-bg-blue-900 group-data-[collapsible=icon]:!p-[1.4rem] group-data-[collapsible=icon]:!w-[10rem]">
+                        <SidebarMenuButton
+                          className={`hover:bg-bg-blue-900 group-data-[collapsible=icon]:!p-[1.4rem] group-data-[collapsible=icon]:!w-[10rem]
+                        flex items-center gap-2 cursor-pointer transition-colors py-2 px-3 rounded-lg hover:bg-[#2a1a2a] hover:text-yellow-400 text-white`}
+                        >
                           {icon && (
-                            <Image className="mr-2" src={icon} alt={title} width={18} height={18} />
+                            <Image
+                              className="mr-2"
+                              src={icon}
+                              alt={title}
+                              width={18}
+                              height={18}
+                            />
                           )}
                           <span className="text-white text-sm/[17px] font-semibold">
                             {t(title)}
@@ -145,36 +160,54 @@ const NavContent = () => {
         }
 
         return (
-          <div key={`${id}-${title}`} className="bg-[rgb(var(--header))] rounded mt-3">
+          <React.Fragment key={`${id}-${title}`}>
             {options?.map(({ url, icon, title, button = false }) => {
               if (button) {
                 return buttonComponents({ url, id, icon, title });
               } else {
                 return (
-                  <SidebarMenuItem key={`${id}-${url}`} className="list-none">
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <SidebarMenuButton
-                            onClick={() => handleRedirect(url)}
-                            className="px-3 py-[23px] shiny-hover hover:border hover:border-white hover:bg-blue-900 group-data-[collapsible=icon]:!w-[3rem] group-data-[collapsible=icon]:m-auto group-data-[collapsible=icon]:!h-[3rem] group-data-[collapsible=icon]:!px-[1rem]"
-                          >
-                            <div className="flex">
-                              <Image className="mr-2" src={icon} alt={title} width={18} height={18} />
-                              <span className="text-white text-sm/[17px] font-semibold group-data-[collapsible=icon]:invisible">
-                                {t(title)}
-                              </span>
-                            </div>
-                          </SidebarMenuButton>
-                        </TooltipTrigger>
-                        <TooltipContent side="right" sideOffset={8}>
-                          {t(title)}
-                        </TooltipContent>
-                      </Tooltip>
+                  <SidebarMenuItem
+                    key={`${id}-${url}`}
+                    className={`list-none rounded-xl
+                      `}
+                  >
+                    {title.includes('Promotions') && (
+                      <div className="w-full my-2 border-gray-400 border-t"></div>
+                    )}
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <SidebarMenuButton
+                          onClick={() => handleRedirect(url)}
+                          className={`group-data-[collapsible=icon]:!w-[3rem] group-data-[collapsible=icon]:m-auto group-data-[collapsible=icon]:!h-[3rem] group-data-[collapsible=icon]:!px-[1rem]
+                          w-full font-bold text-lg flex items-center gap-2 cursor-pointer transition-colors p-3 rounded-lg
+                          bg-new-primary hover:bg-[#2a1a2a] hover:text-yellow-400 text-white`}
+                        >
+                          <div className="flex">
+                            <Image
+                              className="mr-2"
+                              src={icon}
+                              alt={title}
+                              width={18}
+                              height={18}
+                            />
+                            <span className="text-sm/[17px] font-semibold group-data-[collapsible=icon]:invisible">
+                              {t(title)}
+                            </span>
+                          </div>
+                        </SidebarMenuButton>
+                      </TooltipTrigger>
+                      <TooltipContent side="right" sideOffset={8}>
+                        {t(title)}
+                      </TooltipContent>
+                    </Tooltip>
+                    {title.includes('FAQ') && (
+                      <div className="w-full my-2 border-gray-400 border-t"></div>
+                    )}
                   </SidebarMenuItem>
                 );
               }
             })}
-          </div>
+          </React.Fragment>
         );
       })}
       <DialogComponentsMapping
@@ -182,7 +215,7 @@ const NavContent = () => {
         handleClick={handleClick}
         activeUrl={activeUrl}
       />
-    </>
+    </div>
   );
 };
 

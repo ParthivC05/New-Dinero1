@@ -1,38 +1,40 @@
 'use client';
+import * as Tabs from '@radix-ui/react-tabs';
 import { useRouter } from 'next/navigation';
 
 const PanelTabs = ({ activeTab = '', setActiveTab = () => { }, tabControls = [] }) => {
     const router = useRouter(); // Use the Next.js router
 
-    const handleTabClick = (value) => {
-        if (value) {
-            setActiveTab(value); 
+    const handleTabChange = (value) => {
+        if (!value) {
+            router.push('/setting?active=responsibleGambling');
         } else {
-            router.push('/setting?active=responsibleGambling'); 
+            setActiveTab(value);
         }
     };
     
     return (
-        <div className="xl:block sticky top-2 min-w-[180px] max-w-max">
-            <ul className="bg-[rgb(var(--header))] rounded py-2">
-                {tabControls.map((tab) => (
-                    <li
-                        onClick={() => handleTabClick(tab?.value)}
-                        key={tab?.value}
-                        className={`h-8 pt-5 pb-5 hover:bg-[rgb(var(--lb-blue-400))] text-[14px] cursor-pointer ${activeTab === tab.value
-                            ? 'bg-[hsl(var(--background))] border-[rgb(var(--lb-silver))] border-l-2'
-                            : ''
+        <Tabs.Root
+            value={activeTab}
+            onValueChange={handleTabChange}
+            className="w-full"
+        >
+            <Tabs.List className="flex rounded bg-neutral-800 p-1 gap-1 overflow-x-auto">
+                {tabControls.map((tab, index) => (
+                    <Tabs.Trigger
+                        key={tab.value}
+                        value={tab.value}
+                        className={`text-sm px-4 py-2 rounded 
+                            ${activeTab === tab.value
+                                ? 'bg-yellow-400 hover:bg-yellow-400 text-black font-semibold'
+                                : 'text-white hover:bg-neutral-600'
                             }`}
                     >
-                        <div
-                            className="flex items-center h-full text-white indent-4"
-                        >
-                            {tab?.label}
-                        </div>
-                    </li>
+                        {tab.label}
+                    </Tabs.Trigger>
                 ))}
-            </ul>
-        </div>
+            </Tabs.List>
+        </Tabs.Root>
     );
 };
 

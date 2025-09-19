@@ -24,8 +24,8 @@ import { useStateContext } from '@/store';
 const SIDEBAR_COOKIE_NAME = 'sidebar:state';
 const SIDEBAR_COOKIE_NAME_RIGHT = 'sidebar:stateRight';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
-const SIDEBAR_WIDTH = '16rem';
-const SIDEBAR_WIDTH_MOBILE = '100%';
+const SIDEBAR_WIDTH = '16.25rem';
+const SIDEBAR_WIDTH_MOBILE = '16.25rem';
 const SIDEBAR_WIDTH_ICON = '4.5rem';
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
@@ -200,7 +200,7 @@ const Sidebar = React.forwardRef(
       collapsible = 'offcanvas',
       className,
       children,
-      width = '15rem',
+      width = '16.25rem',
       ...props
     },
     ref
@@ -247,7 +247,7 @@ const Sidebar = React.forwardRef(
             side={side}
           >
             <SheetTitle />
-            <div className="flex h-full w-full flex-col">{children}</div>
+            <div className="flex h-full w-full flex-col bg-new-primary">{children}</div>
           </SheetContent>
         </Sheet>
       );

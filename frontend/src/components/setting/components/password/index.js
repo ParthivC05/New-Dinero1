@@ -32,12 +32,12 @@ const Password = () => {
   };
 
   return (
-    <section className="border border-[rgb(var(--lb-blue-300))] rounded">
+    <section className="rounded">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="p-5 border-b border-[rgb(var(--lb-blue-300))] space-y-5">
+        <div className="space-y-6">
           {/* Current Password */}
           <div className="mb-2">
-            <div className="text-white text-[14px] font-bold">
+            <div className="text-white font-bold mb-2.5">
               Current Password <span className="text-red-500">*</span>
             </div>
             <Controller
@@ -48,12 +48,13 @@ const Password = () => {
                 const error = fieldState?.error;
                 return (
                   <>
-                    <div className="flex items-center space-x-2 w-[80%] relative">
+                    <div className="flex items-center space-x-2 relative">
                       <Input
                         type={
                           showPassword.currentPassword ? 'text' : 'password'
                         }
-                        className={`border border-[rgb(var(--lb-blue-200))] w-[100%] ${error ? 'border-red-500' : ''}`}
+                        placeholder="Enter current password"
+                        className={`bg-neutral-800 w-[100%] ${error && 'border-red-500'}`}
                         {...field}
                       />
                       <div
@@ -82,7 +83,7 @@ const Password = () => {
 
           {/* New Password */}
           <div className="mb-2">
-            <div className="text-white text-[14px] font-bold">
+            <div className="text-white font-bold mb-2.5">
               New Password <span className="text-red-500">*</span>
             </div>
             <Controller
@@ -101,10 +102,11 @@ const Password = () => {
                 const error = fieldState?.error;
                 return (
                   <>
-                    <div className="flex items-center space-x-2 w-[80%] relative">
+                    <div className="flex items-center space-x-2 relative">
                       <Input
                         type={showPassword.newPassword ? 'text' : 'password'}
-                        className={`border border-[rgb(var(--lb-blue-200))] w-[100%]  ${error ? 'border-red-500' : ''}`}
+                        placeholder="Enter new password"
+                        className={`bg-neutral-800 w-[100%] ${error && 'border-red-500'}`}
                         {...field}
                       />
                       <div
@@ -119,7 +121,7 @@ const Password = () => {
                       </div>
                     </div>
                     {error && (
-                      <div className="text-red-500 text-sm w-auto">
+                      <div className="text-red-500 text-sm">
                         {error.message}
                       </div>
                     )}
@@ -131,7 +133,7 @@ const Password = () => {
 
           {/* Confirm New Password */}
           <div className="mb-2">
-            <div className="text-white text-[14px] font-bold">
+            <div className="text-white font-bold mb-2.5">
               Confirm New Password <span className="text-red-500">*</span>
             </div>
             <Controller
@@ -146,12 +148,13 @@ const Password = () => {
                 const error = fieldState?.error;
                 return (
                   <>
-                    <div className="flex items-center space-x-2 w-[80%] relative">
+                    <div className="flex items-center space-x-2 relative">
                       <Input
                         type={
                           showPassword.confirmNewPassword ? 'text' : 'password'
                         }
-                        className={`border border-[rgb(var(--lb-blue-200))] w-[100%] ${error ? 'border-red-500' : ''}`}
+                        placeholder="Confirm new password"
+                        className={`bg-neutral-800 w-[100%] ${error ? 'border-red-500' : ''}`}
                         {...field}
                       />
                       <div
@@ -180,7 +183,7 @@ const Password = () => {
         </div>
 
         {/* Submit Button */}
-        <div className="mt-0 p-4 flex justify-end">
+        <div className="mt-0 p-4 flex justify-center">
           {/* <Button className="bg-gray-500 py-2 text-white rounded hover:bg-gray-600 mr-2">
                         Forget Password?
                     </Button> */}
@@ -188,7 +191,7 @@ const Password = () => {
             disabled={loading}
             loading={loading}
             type="submit"
-            className="bg-green-500 py-2 text-white rounded hover:bg-green-600"
+            className="bg-red-500 py-2 text-white rounded-full hover:bg-red-600"
           >
             Submit
           </Button>

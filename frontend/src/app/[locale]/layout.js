@@ -80,7 +80,7 @@ export default async function RootLayout({ children, params }) {
               >
                 <LoginSignup />
                 <SocketProvider>
-                  <SidebarProvider>
+                  <SidebarProvider defaultOpen>
                     <SidebarSection />
                     <SidebarInset>
                       <Header />

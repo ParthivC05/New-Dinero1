@@ -24,34 +24,25 @@ const Email = () => {
   } = useEmail();
 
   return (
-    <section className="border border-[rgb(var(--lb-blue-300))] rounded">
+    <section className="rounded">
       {emailVerified ? (
-        <div className="p-4 border-b border-[rgb(var(--lb-blue-300))]">
-          <div className="mb-2">
-            <div className="text-white text-[14px] font-bold">
-              Current Email
-            </div>
-            <div className="text-[rgb(var(--lb-blue-250))] text-[13px] mb-2">
-              (Please check weekly airdrop email every weekend. Don&apos;t miss your
-              bonus.)
-            </div>
-
-            <Input
-              value={email}
-              className="border border-[rgb(var(--lb-blue-200))] w-[90%]"
-              disabled
-            />
-          </div>
+        <div className="mb-2 w-full">
+          <div className="text-white font-bold mb-2.5">Current Email</div>
+          <Input
+            value={email}
+            className={`rounded-md w-full text-white bg-neutral-800`}
+            locked
+          />
         </div>
       ) : (
         <>
-
           <form onSubmit={handleSubmit(handleEmailSubmit)}>
-            <div className="p-4 border-b border-[rgb(var(--lb-blue-300))]">
+            <div className="">
               <div className="mb-2">
-                <div className="text-white text-[14px] font-bold">Email</div>
-                <div className="text-[rgb(var(--lb-blue-250))] text-[13px] mb-2">
-                  (Gear up, because every week you&apos;ll unlock an epic bonus email)
+                <div className="text-white font-bold">Email</div>
+                <div className="text-[rgb(var(--lb-blue-250))] text-[13px] mb-2.5">
+                  (Gear up, because every week you&apos;ll unlock an epic bonus
+                  email)
                 </div>
                 <Controller
                   control={control}
@@ -60,50 +51,43 @@ const Email = () => {
                     required: 'Please enter email',
                     pattern: {
                       value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
-                      message: 'Please enter a valid email address (lowercase only)',
+                      message:
+                        'Please enter a valid email address (lowercase only)',
                     },
                   }}
                   render={({ field, fieldState }) => {
                     const error = fieldState?.error;
                     return (
                       <>
-                        <div className="flex items-center space-x-2 w-[50%]">
-                          <div
-                            className={`${error ? 'border-red-500' : 'border-gray-300'
-                              } transition-colors duration-200`}
-                          >
+                        <div className="w-full md:w-1/2">
+                          <div className="flex flex-col items-start">
                             <Input
                               {...field}
                               placeholder="Enter your email"
-                              className="border border-[rgb(var(--lb-blue-200))] w-[200%]"
+                              className={`bg-neutral-800 w-full ${error && 'border-red-500'}`}
                               onChange={(e) =>
                                 field.onChange(e.target.value.toLowerCase())
                               }
                             />
+                            {error && (
+                              <p className="text-red-500 text-base mt-1 break-words">
+                                {error?.message}
+                              </p>
+                            )}
                           </div>
                         </div>
-                        {error && (
-                          <div
-                            className={`text-red-500 text-sm absolute transition-opacity duration-300 ease-in-out ${error
-                                ? 'opacity-100 translate-y-0'
-                                : 'opacity-0 translate-y-2'
-                              }`}
-                          >
-                            {error?.message}
-                          </div>
-                        )}
                       </>
                     );
                   }}
                 />
               </div>
             </div>
-            <div className="mt-0 p-4 flex justify-end border-b border-[rgb(var(--lb-blue-300))]">
+            <div className="mt-0 flex justify-end">
               <Button
                 loading={isEmailLoading}
                 disabled={isEmailLoading || emailSubmitted}
                 type="submit"
-                className="bg-green-500 py-2 text-white rounded hover:bg-green-600"
+                className="bg-red-500 py-2 text-white rounded-full hover:bg-red-600"
               >
                 Send
               </Button>
@@ -112,41 +96,43 @@ const Email = () => {
 
           {/* OTP Form */}
           <form onSubmit={handleSubmit(onOtpSubmit)}>
-            <div className="p-4 border-b border-[rgb(var(--lb-blue-300))]">
+            <div>
               <div className="mb-2">
-                <div className="text-white text-[14px] font-bold">
+                <div className="text-white font-bold">
                   Verification Code <span className="text-red-500">*</span>
                 </div>
-                <div className="text-[rgb(var(--lb-blue-250))] text-[13px] mb-2">
+                <div className="text-[rgb(var(--lb-blue-250))] text-[13px] mb-2.5">
                   (Haven&apos;t received? Please check junk email)
                 </div>
                 <Controller
                   control={control}
                   name="otp"
                   rules={{
-                    required: emailSubmitted && 'Please enter your Verification Code',
+                    required:
+                      emailSubmitted && 'Please enter your Verification Code',
                   }}
                   render={({ field, fieldState }) => {
                     const error = fieldState?.error;
                     return (
                       <div className="w-full md:w-1/2">
-                        <div className="flex flex-col">
+                        <div className="flex flex-col items-start">
                           <Input
                             {...field}
-                            className={`border w-full ${error ? 'border-red-500' : 'border-[rgb(var(--lb-blue-200))]'
-                              }`}
+                            className={`bg-neutral-800 w-full ${error && 'border-red-500'}`}
                             type="tel"
                             maxLength={6}
                             pattern="[0-9]*"
                             inputMode="numeric"
                             onInput={(e) => {
-                              e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                              e.target.value = e.target.value.replace(
+                                /[^0-9]/g,
+                                ''
+                              );
                             }}
                             disabled={!emailSubmitted || isOtpLoading}
                           />
-
                           {error && (
-                            <p className="text-red-500 text-sm mt-1 break-words">
+                            <p className="text-red-500 text-base mt-1 break-words">
                               {error?.message}
                             </p>
                           )}
@@ -155,7 +141,6 @@ const Email = () => {
                     );
                   }}
                 />
-
               </div>
               {isTimerActive && (
                 <div className="text-md font-medium text-green-500 w-fit rounded-xl mt-2">
@@ -166,7 +151,7 @@ const Email = () => {
               )}
             </div>
 
-            <div className="mt-0 p-4 flex justify-between">
+            <div className="mt-4 flex justify-between">
               <div className="text-[rgb(var(--lb-blue-250))] text-[13px]">
                 If you don&apos;t receive the email, you can check it in spam
               </div>
@@ -174,7 +159,7 @@ const Email = () => {
                 loading={isOtpLoading}
                 disabled={!emailSubmitted || isOtpLoading}
                 type="submit"
-                className="bg-green-500 py-2 text-white rounded hover:bg-green-600"
+                className="bg-red-500 py-2 text-white rounded-full hover:bg-red-600"
               >
                 Submit
               </Button>

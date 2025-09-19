@@ -6,6 +6,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { cross } from '@/assets/svg';
+import { useStateContext } from '@/store';
 
 const Sheet = SheetPrimitive.Root;
 
@@ -45,19 +46,29 @@ const sheetVariants = cva(
   }
 );
 
-const SheetContent = React.forwardRef(({ side = 'right', className, children, ...props }, ref) => (
-  <SheetPortal>
-    <SheetOverlay />
-    <SheetPrimitive.Content ref={ref} className={cn(sheetVariants({ side }), className)} {...props}>
-      <SheetPrimitive.Close
-        className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-        <Image src={cross} alt="cross" className="h-4 w-4" />
-        <span className="sr-only">Close</span>
-      </SheetPrimitive.Close>
-      {children}
-    </SheetPrimitive.Content>
-  </SheetPortal>
-));
+const SheetContent = React.forwardRef(({ side = 'right', className, children, ...props }, ref) => {
+  const { dispatch } = useStateContext();
+  return (
+    <SheetPortal>
+      <SheetOverlay
+        onClick={() => {
+          dispatch({
+            type: 'SET_LEFT_PANEL',
+            payload: false,
+          });
+        }}
+      />
+      <SheetPrimitive.Content ref={ref} className={cn(sheetVariants({ side }), className)} {...props}>
+        <SheetPrimitive.Close
+          className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+          <Image src={cross} alt="cross" className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </SheetPrimitive.Close>
+        {children}
+      </SheetPrimitive.Content>
+    </SheetPortal>
+  )
+});
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 const SheetHeader = ({
