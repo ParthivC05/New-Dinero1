@@ -7,11 +7,8 @@ import Link from 'next/link';
 function AuthHeader() {
   return (
     <header>
-      <div className="flex p-0 items-center justify-between">
+      <div className="flex  pl-6 items-left ">
         <Image src={logo} alt="logo" width={100} />
-        <Link href={'/'}>
-          <X size={40} />
-        </Link>
       </div>
     </header>
   );

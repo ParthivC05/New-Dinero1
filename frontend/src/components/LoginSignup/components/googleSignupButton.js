@@ -6,7 +6,7 @@ function GoogleFacebookSignupButton() {
   return (
     <div className="max-w-xl mx-auto">
       <LineWithText title="Or Register with" />
-      <div className="flex gap-8 pt-4 justify-center items-center">
+      <div className="flex gap-8 pt-4 sm:p-2 justify-center items-center">
         <button
           className="bg-slate-100 flex justify-center items-center hover:bg-gray-100 transition-colors  px-4 py-2 rounded "
           onClick={() => {

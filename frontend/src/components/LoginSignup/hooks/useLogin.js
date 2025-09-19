@@ -12,6 +12,7 @@ function useLogin() {
   const {
     register,
     handleSubmit,
+    setValue,
     watch,
     formState: { errors, isLoading },
   } = useForm();
@@ -63,6 +64,7 @@ function useLogin() {
     onSubmit,
     isLoading,
     errors,
+    setValue,
   };
 }
 

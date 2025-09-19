@@ -1,4 +1,4 @@
-import React, { useState,useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // import useSignup from '../hooks/useSignup';
 import slider1 from '@/assets/png/slider1.png';
 import slider2 from '@/assets/png/slider2.png';
@@ -28,7 +28,7 @@ function Banner() {
     return () => clearInterval(timeoutRef.current);
   }, [current]);
   return (
-    <div className="mb-6 relative max-w-xl mx-auto">
+    <div className="mb-6 sm:mb-4 relative sm:max-w-lg max-w-xl mx-auto">
       <div className="overflow-hidden rounded-lg">
         <div
           className="flex transition-transform duration-700"
