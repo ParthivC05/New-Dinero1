@@ -75,6 +75,8 @@ import applepayss from './applepayss.png';
 import bank from './bank.png';
 import credit from './credit.png';
 import bitcoin from './bitcoin.png';
+import airdropEmail from "./airdropEmail.gif"
+import bonusDrop from "./bonusDrop.gif"
 
 export {
   bitcoin,
@@ -153,4 +155,6 @@ export {
   Image404,
   identification,
   successIdentity,
+  airdropEmail,
+  bonusDrop
 };

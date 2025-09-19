@@ -1,14 +1,12 @@
 'use client';
 
 import { headPortrait } from '@/assets/png';
-import { cross, penLine, profile } from '@/assets/svg';
-import CoinToggler from '@/components/Header/components/CoinToggler';
+import { cross } from '@/assets/svg';
 import {
   AvatarFallback,
   Avatar as AvatarIcon,
   AvatarImage,
 } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -30,40 +28,52 @@ const UserInfo = ({
   const isChatData = !isEmpty(chatUserData);
 
   // Ensure displayData is always an object to prevent destructuring errors
-  const displayData = isChatData ? chatUserData : (userData || {});
+  const displayData = isChatData ? chatUserData : userData || {};
 
   const {
+    firstName = '',
     username = '',
+    userId = '',
     profileImage = '',
-    level = 0,
     losses = 0,
     win = 0,
     betCount = 0,
     wagered = 0,
-    currentVipTier = {},
+    userWallet = [],
   } = displayData;
+
+  const Box = ({ num = 0, title = '', prefix = '', postfix = '' }) => (
+    <div className="h-fit bg-gradient-to-b from-yellow-400 to-pink-500 p-0.5 rounded-xl">
+      <div className="h-full py-2 px-1 sm:py-4 sm:px-2 gap-3 flex flex-col items-center justify-center text-center rounded-xl bg-new-primary">
+        <p className="text-white text-xl font-bold">
+          {prefix}
+          {truncateDecimals(num, 2) || 0}
+          {postfix}
+        </p>
+        <p className="text-gray-400 text-sm font-semibold">{title}</p>
+      </div>
+    </div>
+  );
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClick}>
-      <DialogContent className="w-full max-w-lg p-6 rounded-md border-none">
-        <DialogHeader className="flex flex-row justify-between">
-          <div className="flex items-center space-x-2">
-            <Image src={profile} alt="store image" />
-            <DialogTitle className="text-white">User Info</DialogTitle>
-          </div>
-          <Image
-            src={cross}
-            alt="close icon"
-            onClick={handleClick}
-            className="invert hover:bg-gray-500 rounded-xl cursor-pointer"
-          />
+      <DialogContent className="w-[90%] sm:w-full max-w-lg p-6 rounded-xl border-none !min-h-64 h-fit !bg-new-primary">
+        <DialogHeader className="hidden">
+          <DialogTitle />
         </DialogHeader>
+
+        <Image
+          src={cross}
+          alt="close icon"
+          onClick={handleClick}
+          className="absolute top-5 right-5 invert hover:bg-gray-500 rounded-full cursor-pointer w-6 h-6"
+        />
 
         {userLoading || chatUserLoading ? (
           <CustomCircularloading />
         ) : (
           <>
-            <div className="flex items-center space-x-2 mb-2">
+            <div className="flex items-center space-x-4 mb-2">
               <div className="w-20 h-20 rounded-full">
                 <AvatarIcon className="h-20 w-20">
                   <AvatarImage src={profileImage} alt="avatar" />
@@ -78,62 +88,37 @@ const UserInfo = ({
                 </AvatarIcon>
               </div>
 
-              <div className="flex justify-between items-center w-full">
-                <div className="space-x-4 flex items-center">
-                  <h2 className="text-white text-lg font-bold">
-                    {username || 'User Name'}
-                  </h2>
-                  <p className="text-sm text-white bg-[rgb(var(--lb-blue-900))] py-1 px-2 rounded-2xl font-bold">
-                    Level: <span>{currentVipTier?.level ?? level}</span>
-                  </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-0 items-center w-full">
+                <div className="space-x-4 items-start">
+                  <div>
+                    <h2 className="text-white text-lg font-bold">
+                      {firstName || username || 'User Name'}
+                    </h2>
+                    <p className="text-gray-300 font-semibold">
+                      ID: {userId || ''}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="flex gap-2">
-                  <Button
-                    disabled={isChatData}
-                    className="p-2 bg-background"
-                    onClick={() => {
-                      handleClickEdit();
-                      handleClick();
-                    }}
-                  >
-                    <Image src={penLine} alt="edit icon" />
-                  </Button>
+                <div className="space-x-4 items-start">
+                  <div>
+                    <h2 className="text-white text-lg">Refrred friends: {0}</h2>
+                    <p className="text-green-500 text-lg font-bold">
+                      SC{' '}
+                      {userWallet.find((i) => i.currencyCode === 'BSC')
+                        ?.balance ?? 0}{' '}
+                      Earned
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {!isChatData && (
-              <div className="mr-auto max-w-fit">
-                <CoinToggler isPopupRequired={false} />
-              </div>
-            )}
-
-            <div className="grid grid-cols-2 gap-2 mt-3 p-1">
-              <div className="text-center bg-[rgb(var(--lb-blue-500))] rounded-md">
-                <p className="text-white text-md font-bold">
-                  {truncateDecimals(win, 2) || 0}
-                </p>
-                <p className="text-gray-400 text-sm">WINS</p>
-              </div>
-              <div className="text-center bg-[rgb(var(--lb-blue-500))] rounded-md">
-                <p className="text-white text-md font-bold">
-                  {truncateDecimals(losses, 2) || 0}
-                </p>
-                <p className="text-gray-400 text-sm">LOSSES</p>
-              </div>
-              <div className="text-center bg-[rgb(var(--lb-blue-500))] rounded-md">
-                <p className="text-white text-md font-bold">
-                  {truncateDecimals(betCount, 2) || 0}
-                </p>
-                <p className="text-gray-400 text-sm">BETS</p>
-              </div>
-              <div className="text-center bg-[rgb(var(--lb-blue-500))] rounded-md">
-                <p className="text-white text-md font-bold">
-                  {truncateDecimals(wagered, 2) || 0}
-                </p>
-                <p className="text-gray-400 text-sm">WAGERED</p>
-              </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 p-1">
+              <Box num={win} title="WINS" />
+              <Box num={losses} title="LOSSES" />
+              <Box num={betCount} title="BETS" />
+              <Box num={wagered} title="WAGERED" prefix="$" postfix="K" />
             </div>
           </>
         )}

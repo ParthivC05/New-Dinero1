@@ -42,21 +42,21 @@ const ResponsibleGambling = () => {
   }, []);
 
   return (
-    <section className="border border-[rgb(var(--lb-blue-300))] rounded">
-      <div className="p-4 border-b border-[rgb(var(--lb-blue-300))]">
+    <section className="rounded">
+      <div className="">
         <div className="mb-2">
-          <div className="text-white text-[14px] font-bold">Self Exclusion</div>
-          <div className="text-[rgb(var(--lb-blue-250))] text-[13px] mb-2">
+          <div className="text-white text-lg font-bold mb-1">Self Exclusion</div>
+          <div className="text-gray-400 text-sm mb-2">
             Need a break from Dinero Sweeps? To start the automated self exclusion
             process, please click the button below to receive confirmation
             instructions via email.
           </div>
         </div>
       </div>
-      <div className="mt-0 p-4 flex flex-col sm:flex-row gap-2 justify-between">
-        <div className="text-[rgb(var(--lb-blue-250))] text-[13px] mb-2">
+      <div className="mt-0 py-4 flex flex-col sm:flex-row gap-2 justify-between">
+        <div className="text-gray-400 text-sm mb-2">
           Learn more about
-          <span className="text-white text-[14px] font-bold cursor-pointer">
+          <span className="text-white text-base font-bold cursor-pointer">
             {' '}
             Self Exclusion
           </span>

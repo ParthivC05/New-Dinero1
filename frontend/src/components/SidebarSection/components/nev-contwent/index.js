@@ -44,11 +44,12 @@ const NavContent = () => {
           <TooltipTrigger asChild>
             <SidebarMenuButton
               onClick={() => handleClick(url)}
-              className="group-data-[collapsible=icon]:!w-[3rem] group-data-[collapsible=icon]:m-auto group-data-[collapsible=icon]:!h-[3rem] group-data-[collapsible=icon]:!px-[1rem]
-              w-full flex items-center px-4 py-6 rounded-xl border-2 border-yellow-400 text-white font-bold text-lg bg-gradient-to-r from-black via-[#1c0f18] to-black hover:bg-gradient-to-r hover:from-[#2a1a2a] hover:via-[#1c0f18] hover:to-[#2a1a2a] transition-all duration-200"
+              className={`group-data-[collapsible=icon]:!w-[3rem] group-data-[collapsible=icon]:m-auto group-data-[collapsible=icon]:!h-[3rem] group-data-[collapsible=icon]:!px-[1rem]
+                w-full font-bold text-lg flex items-center gap-2 cursor-pointer transition-colors p-3 rounded-lg
+                bg-new-primary hover:bg-[#2a1a2a] hover:text-yellow-400 text-white`}
             >
               <Image src={icon} alt={title} width={18} height={18} />
-              <span className="text-white text-sm/[17px] font-semibold group-data-[collapsible=icon]:invisible">
+              <span className="text-sm/[17px] font-semibold group-data-[collapsible=icon]:invisible">
                 {title}
               </span>
             </SidebarMenuButton>
@@ -92,7 +93,7 @@ const NavContent = () => {
                       width={18}
                       height={18}
                     />
-                    <span className="text-white text-sm/[17px] group-data-[collapsible=icon]:hidden">
+                    <span className="text-sm/[17px] group-data-[collapsible=icon]:hidden">
                       {t(title)}
                     </span>
                     <Image
@@ -112,7 +113,7 @@ const NavContent = () => {
                   </CollapsibleTrigger>
                 </SidebarGroupLabel>
                 <CollapsibleContent
-                  className={`grid gap-2 group-data-[collapsible=icon]:fixed group-data-[collapsible=icon]:left-[5rem] group-data-[collapsible=icon]:top-[7rem] group-data-[collapsible=icon]:bg-[hsl(var(--side-bar-card))] group-data-[collapsible=icon]:overflow-y-auto group-data-[collapsible=icon]:max-h-[60vh] ${styles.customScrollbar} bg-transparent`}
+                  className={`grid gap-2 group-data-[collapsible=icon]:fixed group-data-[collapsible=icon]:left-[5rem] group-data-[collapsible=icon]:top-[7rem] group-data-[collapsible=icon]:bg-[hsl(var(--side-bar-card))] group-data-[collapsible=icon]:overflow-y-auto group-data-[collapsible=icon]:max-h-[60vh] ${styles.customScrollbar} bg-transparent py-2`}
                 >
                   {options?.map(({ url, title, icon, button }) => {
                     if (!title) return null;
@@ -133,8 +134,8 @@ const NavContent = () => {
                         key={`${id}-${url}`}
                       >
                         <SidebarMenuButton
-                          className="hover:bg-bg-blue-900 group-data-[collapsible=icon]:!p-[1.4rem] group-data-[collapsible=icon]:!w-[10rem]
-                        flex items-center gap-2 cursor-pointer transition-colors py-2 px-3 rounded-lg hover:bg-[#2a1a2a] ${isActive ? 'bg-[#2a1a2a] text-yellow-400' : 'hover:text-yellow-400 text-white'}"
+                          className={`hover:bg-bg-blue-900 group-data-[collapsible=icon]:!p-[1.4rem] group-data-[collapsible=icon]:!w-[10rem]
+                        flex items-center gap-2 cursor-pointer transition-colors py-2 px-3 rounded-lg hover:bg-[#2a1a2a] hover:text-yellow-400 text-white`}
                         >
                           {icon && (
                             <Image
@@ -167,14 +168,19 @@ const NavContent = () => {
                 return (
                   <SidebarMenuItem
                     key={`${id}-${url}`}
-                    className="list-none rounded-xl bg-[rgb(var(--header))]"
+                    className={`list-none rounded-xl
+                      `}
                   >
+                    {title.includes('Promotions') && (
+                      <div className="w-full my-2 border-gray-400 border-t"></div>
+                    )}
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <SidebarMenuButton
                           onClick={() => handleRedirect(url)}
-                          className="group-data-[collapsible=icon]:!w-[3rem] group-data-[collapsible=icon]:m-auto group-data-[collapsible=icon]:!h-[3rem] group-data-[collapsible=icon]:!px-[1rem]
-                          w-full flex items-center px-4 py-6 rounded-xl border-2 border-yellow-400 text-white font-bold text-lg bg-gradient-to-r from-black via-[#1c0f18] to-black hover:bg-gradient-to-r hover:from-[#2a1a2a] hover:via-[#1c0f18] hover:to-[#2a1a2a] transition-all duration-200"
+                          className={`group-data-[collapsible=icon]:!w-[3rem] group-data-[collapsible=icon]:m-auto group-data-[collapsible=icon]:!h-[3rem] group-data-[collapsible=icon]:!px-[1rem]
+                          w-full font-bold text-lg flex items-center gap-2 cursor-pointer transition-colors p-3 rounded-lg
+                          bg-new-primary hover:bg-[#2a1a2a] hover:text-yellow-400 text-white`}
                         >
                           <div className="flex">
                             <Image
@@ -184,7 +190,7 @@ const NavContent = () => {
                               width={18}
                               height={18}
                             />
-                            <span className="text-white text-sm/[17px] font-semibold group-data-[collapsible=icon]:invisible">
+                            <span className="text-sm/[17px] font-semibold group-data-[collapsible=icon]:invisible">
                               {t(title)}
                             </span>
                           </div>
@@ -194,6 +200,9 @@ const NavContent = () => {
                         {t(title)}
                       </TooltipContent>
                     </Tooltip>
+                    {title.includes('FAQ') && (
+                      <div className="w-full my-2 border-gray-400 border-t"></div>
+                    )}
                   </SidebarMenuItem>
                 );
               }

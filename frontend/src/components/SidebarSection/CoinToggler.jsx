@@ -109,7 +109,7 @@ function CoinToggler({ setCurrency = () => {}, isPopupRequired = true }) {
         {isPopupRequired && (
           <PopoverContent
             side={isMobile ? 'up' : 'right'}
-            className={`bg-[rgb(var(--secondary-btn-color))] w-[21rem] text-white border-0 rounded-lg p-2 shadow-lg focus:outline-none focus:ring-0 bg-[linear-gradient(rgb(24,17,26)_0%,rgb(27,15,26)_100%)]`}
+            className={`w-[21rem] text-white border-0 rounded-lg p-2 shadow-lg focus:outline-none focus:ring-0 bg-new-primary`}
             {...(isMobile
               ? { onClick: () => setOpen(false) }
               : {

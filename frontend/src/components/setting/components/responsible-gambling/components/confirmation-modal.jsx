@@ -30,19 +30,16 @@ const ConfirmationModal = (props) => {
   } = props;
   return (
     <Dialog open={isOpen} onOpenChange={handleClick} className="">
-      <DialogContent className="max-w-lg  mx-auto mb-6 rounded-lg shadow-lg border-none">
-        <DialogHeader className="flex flex-row justify-between h-[30px]">
-          <div className="flex justify-center items-center space-x-2">
-            <DialogTitle className="text-white text-[2rem]">
-              Self Exclusion
-            </DialogTitle>
-          </div>
-
+      <DialogContent className="w-[90%] sm:w-full max-w-lg !bg-new-primary !min-h-64 h-fit mx-auto mb-6 rounded-xl border-none">
+        <DialogHeader className="flex flex-row justify-between h-7">
+          <DialogTitle className="text-white text-xl">
+            Self Exclusion
+          </DialogTitle>
           <Image
             src={cross}
             alt="close icon"
             onClick={handleClick}
-            className="invert hover:bg-gray-500 rounded-xl"
+            className="absolute top-5 right-5 invert hover:bg-gray-500 rounded-xl"
           />
         </DialogHeader>
         <div
@@ -71,38 +68,36 @@ const ConfirmationModal = (props) => {
                 <label htmlFor="date" className="font-normal text-white">
                   Choose Date
                 </label>
-                </div>
-               
+              </div>
             </RadioGroup>
             <div>
-            {checkedValue === 'date' && (
-                  <div className="space-x-3 mt-5">
-                    {/* <DatePicker
+              {checkedValue === 'date' && (
+                <div className="space-x-3 mt-5">
+                  {/* <DatePicker
                   //   className="text-white"
                   selected={selectedDate}
                   onSelect={(date) => {
                     handleDate(date);
                   }}
                 /> */}
-                   <input
-  className="w-[50%] p-2 border border-[rgb(var(--lb-blue-200))] text-white bg-transparent rounded-md 
+                  <input
+                    className="w-[50%] p-2 border border-[rgb(var(--lb-blue-200))] text-white bg-transparent rounded-md 
              [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-100"
-  type="date"
-  value={selectedDate}
-  min={new Date().toISOString().split('T')[0]}
-  onChange={(e) => {
-    handleDate(e.target.value);
-  }}
-/>
-
-                  </div>
-                )}
+                    type="date"
+                    value={selectedDate}
+                    min={new Date().toISOString().split('T')[0]}
+                    onChange={(e) => {
+                      handleDate(e.target.value);
+                    }}
+                  />
+                </div>
+              )}
             </div>
-            <div className="mt-[50px] flex justify-end">
+            <div className="mt-[50px] flex justify-center">
               <Button
                 loading={loading}
                 disabled={loading}
-                className="bg-green-500 text-blue-950 font-semibold hover:bg-green-400"
+                className="bg-red-500 text-white rounded-full font-semibold hover:bg-red-400"
               >
                 Submit
               </Button>

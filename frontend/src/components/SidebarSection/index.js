@@ -19,12 +19,8 @@ import Link from 'next/link';
 import CoinToggler from './CoinToggler';
 import BuyReedem from '../Buy-Reedem/components';
 import useHeader from '../Header/hooks/useHeader';
-// import Link from 'next/link';
 
 export default function SidebarSection({ props }) {
-  // const pathname = usePathname();
-  // const isActive = pathname === '/get-coins';
-
   const { state } = useStateContext();
   const { handleClick, isOpen, clickedButton, handleButtonClick } = useHeader();
   const isMobile = useIsMobile();
@@ -35,11 +31,11 @@ export default function SidebarSection({ props }) {
     <Sidebar
       collapsible="icon"
       {...props}
-      className="bg-[hsl(var(--background))] !bg-[linear-gradient(rgb(24,17,26)_0%,rgb(27,15,26)_100%)]"
+      className="!bg-new-primary"
       open={state.leftPanel}
     >
       {isMobile && <MobileCloseButton />}
-      <div className="h-full overflow-y-auto overflow-x-hidden scrollbar-thin scrollable-Content-Home bg-[linear-gradient(rgb(24,17,26)_0%,rgb(27,15,26)_100%)]">
+      <div className="h-full overflow-y-auto overflow-x-hidden scrollbar-thin scrollable-Content-Home bg-new-primary">
         <SidebarContent className="p-2 group-data-[collapsible=icon]:px-2">
           <Link
             href={'/'}

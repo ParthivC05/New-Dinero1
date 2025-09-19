@@ -247,7 +247,7 @@ const Sidebar = React.forwardRef(
             side={side}
           >
             <SheetTitle />
-            <div className="flex h-full w-full flex-col bg-[linear-gradient(rgb(24,17,26)_0%,rgb(27,15,26)_100%)]">{children}</div>
+            <div className="flex h-full w-full flex-col bg-new-primary">{children}</div>
           </SheetContent>
         </Sheet>
       );
