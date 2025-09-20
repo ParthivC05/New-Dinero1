@@ -9,13 +9,13 @@ import { dir } from 'i18next';
 import localFont from 'next/font/local';
 import Head from 'next/head';
 import { Suspense } from 'react';
-import i18nConfig from '../../../../i18nConfig';
-import Header from '../../../components/Header/components';
-import SidebarSection from '../../../components/SidebarSection';
-import initTranslations from '../../i18n';
+import i18nConfig from '../../../i18nConfig';
+import Header from '../../components/Header/components';
+import SidebarSection from '../../components/SidebarSection';
+import initTranslations from '../i18n';
 import ChatModule from './@chat/page';
 import LoginSignup from './@login/page';
-import './../global.scss';
+import './global.scss';
 import 'sweetalert2/src/sweetalert2.scss';
 
 import SocketProvider from './SocketProvider';

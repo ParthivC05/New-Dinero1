@@ -7,7 +7,7 @@ export default function FaqHeader() {
       <header className=" bg-black px-6 py-4 flex items-center justify-between">
         <div className="relative flex-1 max-w-md">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-" />
+            <Search className="h-5 w-5 text-white" />
           </div>
           <input
             type="text"
@@ -16,13 +16,7 @@ export default function FaqHeader() {
           />
         </div>
 
-        <button className="ml-6 relative bg-red-600 hover:bg-red-700 text-white font-medium px-6 py-2.5 rounded-lg transition-colors duration-200 text-sm overflow-hidden">
-          <div className="absolute top-0 left-0 w-6 h-6">
-            <div
-              className="absolute left-0 top-0 w-4 h-4 bg-white rounded-tr-sm
-                   [clip-path:polygon(0%_0%,100%_0%,0%_100%)]"
-            ></div>
-          </div>
+        <button className="ml-6 bg-red-600 hover:bg-red-700 text-white font-medium px-6 py-2.5 rounded-lg transition-colors duration-200 text-sm overflow-hidden">
           Get Coins
         </button>
       </header>
