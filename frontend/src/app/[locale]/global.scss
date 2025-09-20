@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
 
 .app-layout {
   .main-content {
@@ -133,15 +134,14 @@ input {
     --lb-purple-100: 229, 195, 253;
     --lb-purple-0: 242, 225, 254;
     --secondary-btn-color: 16, 46, 92;
-    --progress-bar:rgba(28, 23, 45, 1);
+    --progress-bar: rgba(28, 23, 45, 1);
     // --gradient-start: #6b21a8;
     // --gradient-end:#201646;
-    --gradient-start: #10254A;
-    --gradient-end: #1C3A6E;
+    --gradient-start: #10254a;
+    --gradient-end: #1c3a6e;
+  }
 
-    }
-    
-      .dark {
+  .dark {
     --background: 240 10% 3.9%;
     --foreground: 220, 71%, 15%;
     --card: 240 10% 3.9%;
@@ -150,7 +150,7 @@ input {
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     // --primary-foreground: 240 5.9% 10%;
-    --primary-foreground:218, 64%, 18%;
+    --primary-foreground: 218, 64%, 18%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
@@ -180,6 +180,10 @@ input {
   }
 }
 @layer utilities {
+  .text-header {
+    font-size: 20px;
+    line-height: 30px;
+  }
   .hexagon {
     cursor: default;
     position: absolute;
