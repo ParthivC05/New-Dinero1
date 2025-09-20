@@ -31,7 +31,7 @@ function CustomSelect({
             <SelectItem
               key={option?.value}
               value={option?.value}
-              className="text-white bg-[hsl(var(--lb-blue-950))] hover:bg-[hsl(var(--lb-blue-950))]"
+              className={`text-white data-[state=checked]:bg-amber-300 data-[state=checked]:text-white`}
             >
               {option?.label}
             </SelectItem>
