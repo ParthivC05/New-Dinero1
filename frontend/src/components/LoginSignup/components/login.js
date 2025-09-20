@@ -9,8 +9,8 @@ import InputPassword from '@/components/LoginSignup/components/inputPassword';
 import InputEmail from '@/components/LoginSignup/components/inputEmail';
 import useLogin from '../hooks/useLogin';
 function Login({ setIsLogin }) {
-  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY; 
-  const { register, handleSubmit, onSubmit, isLoading, errors, setValue } =
+  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+  const { register, handleSubmit, onSubmit, isSubmitting, errors, setValue } =
     useLogin();
   const recaptchaRef = useRef(null);
 
@@ -58,9 +58,9 @@ function Login({ setIsLogin }) {
               <button
                 className=" w-1/2 px-8 py-2 rounded-3xl bg-orange-600 border-b-8 border-orange-700 hover:bg-orange-700 text-white transition-all transform hover:scale-105"
                 type="submit"
-                disabled={isLoading}
+                disabled={isSubmitting}
               >
-                {isLoading ? 'Play Now...' : 'Play Now'}
+                {isSubmitting ? 'Play Now...' : 'Play Now'}
               </button>
               <button
                 className="text-white underline hover:bg-transparent "

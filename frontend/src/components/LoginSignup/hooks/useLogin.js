@@ -14,7 +14,7 @@ function useLogin() {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isLoading },
+    formState: { errors, isSubmitting },
   } = useForm();
   const { dispatch } = useStateContext();
   const { getUser } = useGetUserDeatil();
@@ -62,7 +62,7 @@ function useLogin() {
     register,
     handleSubmit,
     onSubmit,
-    isLoading,
+    isSubmitting,
     errors,
     setValue,
   };
