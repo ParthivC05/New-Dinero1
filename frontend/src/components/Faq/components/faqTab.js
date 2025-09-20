@@ -25,13 +25,13 @@ function FaqTab({ index, setIndex }) {
           })}
         </div>
       </div>
-      <div className="block sm:hidden  ">
+      <div className="block sm:hidden pt-[17px]  ">
         <CustomSelect
           options={TAB_CONTROLS}
           selectedValue={index}
           onValueChange={setIndex}
-          className="bg-stone-800 text-white p-6 text-md rounded-lg border-none"
-          contentClassName="bg-stone-800 border-none hover:bg-amber-300"
+          className="bg-stone-800 text-white p-6 text-md rounded-lg border-none font-light text-sm"
+          contentClassName="bg-stone-800 border-none hover:bg-amber-300 font-light"
         />
       </div>
     </div>

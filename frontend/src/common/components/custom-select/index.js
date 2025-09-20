@@ -31,7 +31,7 @@ function CustomSelect({
             <SelectItem
               key={option?.value}
               value={option?.value}
-              className={`text-white data-[state=checked]:bg-amber-300 data-[state=checked]:text-white`}
+              className={`text-white data-[state=checked]:bg-amber-300 data-[state=checked]:text-white font-normal`}
             >
               {option?.label}
             </SelectItem>

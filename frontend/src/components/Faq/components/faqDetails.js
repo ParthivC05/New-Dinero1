@@ -6,7 +6,7 @@ function FaqDetails({ index }) {
   const { title, description, questions, list } = faq;
 
   return (
-    <div className=" pl-4 pt-[44px] text-white text-[16px] leading-[24px] ">
+    <div className=" pl-4 sm:pt-[44px] pt-[24px] text-white text-[16px] leading-[24px] ">
       <h2 className="py-4">
         The Orion starsis a FREE-TO-PLAY online platform that operates in 2
         different modes:

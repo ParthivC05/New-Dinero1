@@ -11,10 +11,10 @@ function Faq() {
     <div className=" bg-black max-sm:bg-custom-gradient p-2">
       <div className="flex flex-col  font-ubuntu ">
         <FaqHeader />
-        <h1 className="pl-4 pb-[27px] pt-[49px] text-[20px] leading-[30px] text-white hidden sm:block">
+        <h1 className="pl-4 sm:pb-[27px]  pt-[49px] text-[20px] leading-[30px] text-white hidden sm:block">
           Frequently asked questions
         </h1>
-        <h1 className="pl-4 pb-[27px] text-[20px] leading-[30px] text-white block sm:hidden">
+        <h1 className="pl-4 sm:pb-[27px]  text-[20px] leading-[30px] text-white block sm:hidden">
           Responsible Gaming
         </h1>
         <FaqTab setIndex={setIndex} index={index} />
