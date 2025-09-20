@@ -40,6 +40,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'mstatic-ire1.1gamehub.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.icons8.com',
+      },
     ],
   },
   output: 'standalone',

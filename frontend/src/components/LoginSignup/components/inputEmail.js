@@ -1,0 +1,29 @@
+import { useRef, useEffect } from 'react';
+import React from 'react';
+
+function InputEmail({ register, errors }) {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.focus(); // focus when component mounts
+  }, []);
+  return (
+    <div className="relative">
+      <input
+        className="w-full pl-8 rounded-xl border  bg-stone-800 p-2 "
+        type="text"
+        name="username"
+        {...register('username', { required: 'username is required' })}
+        placeholder="Email Address"
+        id="username"
+      />
+      {errors.username && (
+        <p role="alert" className="text-red-500">
+          {errors.username.message}
+        </p>
+      )}
+    </div>
+  );
+}
+
+export default InputEmail;

@@ -48,7 +48,6 @@ const UserForm = ({
     setIsMarkTick(!!isAgeChecked && !!termsChecked);
   }, [isAgeChecked, termsChecked]);
 
-  
   const onSubmit = (data) => {
     if (isSignUp) {
       if (!data.isAge || !data.terms) {
@@ -75,8 +74,13 @@ const UserForm = ({
     originalOnSubmit(data);
   };
 
-  const { termsData, privacyData, fetchTerms, fetchPrivacyPolicy, termsPrivacyLoading } =
-    useTermsPrivacy();
+  const {
+    termsData,
+    privacyData,
+    fetchTerms,
+    fetchPrivacyPolicy,
+    termsPrivacyLoading,
+  } = useTermsPrivacy();
 
   const [dialogConfig, setDialogConfig] = useState({
     isOpen: false,
@@ -111,7 +115,9 @@ const UserForm = ({
               return (
                 <div className="text-left flex flex-col">
                   {!isCheckbox && (
-                    <label className="text-blue-100 tw-font-bold">{item.label}</label>
+                    <label className="text-blue-100 tw-font-bold">
+                      {item.label}
+                    </label>
                   )}
                   <div className="items-center space-x-2 mt-2 relative">
                     <div
@@ -131,7 +137,11 @@ const UserForm = ({
                             onClick={togglePasswordVisibility}
                             className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                           >
-                            {showPassword ? <Image src={eyeOff} alt="eye-off" /> : <Image src={eye} alt="eye" />}
+                            {showPassword ? (
+                              <Image src={eyeOff} alt="eye-off" />
+                            ) : (
+                              <Image src={eye} alt="eye" />
+                            )}
                           </div>
                         </div>
                       ) : isCheckbox ? (
@@ -141,8 +151,10 @@ const UserForm = ({
                             checked={field.value}
                             onCheckedChange={(checked) => {
                               field.onChange(checked);
-                              if (item.name === 'isAge') setIsAgeChecked(checked);
-                              if (item.name === 'terms') setTermsChecked(checked);
+                              if (item.name === 'isAge')
+                                setIsAgeChecked(checked);
+                              if (item.name === 'terms')
+                                setTermsChecked(checked);
                             }}
                             name={item.name}
                             {...field}
@@ -156,7 +168,10 @@ const UserForm = ({
                                   <span
                                     className="cursor-pointer underline text-blue-500"
                                     onClick={() => {
-                                      setDialogConfig({ isOpen: true, type: 'terms' });
+                                      setDialogConfig({
+                                        isOpen: true,
+                                        type: 'terms',
+                                      });
                                       fetchTerms();
                                     }}
                                   >
@@ -170,7 +185,10 @@ const UserForm = ({
                                   <span
                                     className="cursor-pointer underline text-blue-500"
                                     onClick={() => {
-                                      setDialogConfig({ isOpen: true, type: 'privacy' });
+                                      setDialogConfig({
+                                        isOpen: true,
+                                        type: 'privacy',
+                                      });
                                       fetchPrivacyPolicy();
                                     }}
                                   >
@@ -244,7 +262,6 @@ const UserForm = ({
             {isSignUp ? 'Sign Up' : 'Sign In'}
           </Button>
 
-
           <Button
             type="button"
             disabled={isBlocked || (isSignUp && !isMarkTick)}
@@ -261,7 +278,8 @@ const UserForm = ({
               if (isSignUp && !isMarkTick) {
                 setToastState?.({
                   showToast: true,
-                  message: 'Please accept Terms of Use, Privacy Policy, and Age/State restriction.',
+                  message:
+                    'Please accept Terms of Use, Privacy Policy, and Age/State restriction.',
                   status: 'error',
                 });
                 return;
@@ -270,9 +288,10 @@ const UserForm = ({
                 process.env.NEXT_PUBLIC_BACKEND_URL + '/api/v1/auth/sso/google';
             }}
           >
-            <span>{isSignUp? "Sign up with Google" : "Sign in with Google"}</span>
+            <span>
+              {isSignUp ? 'Sign up with Google' : 'Sign in with Google'}
+            </span>
           </Button>
-
 
           <Button
             type="button"
@@ -290,16 +309,20 @@ const UserForm = ({
               if (isSignUp && !isMarkTick) {
                 setToastState?.({
                   showToast: true,
-                  message: 'Please accept Terms of Use, Privacy Policy, and Age/State restriction.',
+                  message:
+                    'Please accept Terms of Use, Privacy Policy, and Age/State restriction.',
                   status: 'error',
                 });
                 return;
               }
               window.location.href =
-                process.env.NEXT_PUBLIC_BACKEND_URL + '/api/v1/auth/sso/facebook';
+                process.env.NEXT_PUBLIC_BACKEND_URL +
+                '/api/v1/auth/sso/facebook';
             }}
           >
-            <span>{isSignUp? "Sign up with Facebook" : "Sign in with Facebook"}</span>
+            <span>
+              {isSignUp ? 'Sign up with Facebook' : 'Sign in with Facebook'}
+            </span>
           </Button>
         </>
       )}

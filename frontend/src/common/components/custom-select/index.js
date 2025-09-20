@@ -16,7 +16,6 @@ function CustomSelect({
   contentClassName = '',
   // ...props
 }) {
-
   return (
     <Select value={selectedValue} onValueChange={onValueChange}>
       <SelectTrigger
@@ -32,7 +31,7 @@ function CustomSelect({
             <SelectItem
               key={option?.value}
               value={option?.value}
-              className="text-white bg-[hsl(var(--lb-blue-950))] hover:bg-[hsl(var(--lb-blue-950))]"
+              className={`text-white data-[state=checked]:bg-amber-300 data-[state=checked]:text-white font-normal`}
             >
               {option?.label}
             </SelectItem>
@@ -42,7 +41,5 @@ function CustomSelect({
     </Select>
   );
 }
-
-
 
 export default CustomSelect;
