@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        ubuntu: ['Ubuntu', 'sans-serif'],
+      },
       backgroundImage: {
         'custom-gradient':
           'linear-gradient(to bottom, black 20%, #450a0a 100%)',
